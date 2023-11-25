@@ -3,10 +3,13 @@ import UseAuth from "../../hooks/UseAuth";
 'use client';
 
 import { Dropdown, Navbar } from 'flowbite-react';
+import UserData from "../../hooks/UserData";
 
 const NavigationBar = () => {
 
     const { user, logOut } = UseAuth();
+    const [users] = UserData();
+
 
 
 
@@ -50,12 +53,13 @@ const NavigationBar = () => {
                                 }
                             >
                                 <Dropdown.Header>
-                                    <span className="block text-sm">Bonnie Green</span>
-                                    <span className="block truncate text-sm font-medium">name@flowbite.com</span>
+                                    <span className="block text-sm mb-3">{user?.displayName}</span>
+                                    <span className="block truncate text-sm font-medium mb-3">{user?.email}</span>
+                                    <span className="block truncate text-sm font-bold text-blue-800">Role: {users[0]?.role}</span>
                                 </Dropdown.Header>
                                 <Dropdown.Item>Dashboard</Dropdown.Item>
-                                <Dropdown.Item>Settings</Dropdown.Item>
-                                <Dropdown.Item>Earnings</Dropdown.Item>
+                                {/* <Dropdown.Item>Settings</Dropdown.Item>
+                                <Dropdown.Item>Earnings</Dropdown.Item> */}
                                 <Dropdown.Divider />
                                 <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
                             </Dropdown>

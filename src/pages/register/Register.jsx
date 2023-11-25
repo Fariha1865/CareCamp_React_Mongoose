@@ -18,6 +18,7 @@ import { AuthContext } from "../../Providers/Authprovider";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from '../../hooks/AxiosSecure';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 
 
@@ -26,7 +27,7 @@ const defaultTheme = createTheme();
 
 const Register = () => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } ,setValue } = useForm();
     const { createUser, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
     const axiosSecure = useAxiosSecure();
@@ -41,7 +42,8 @@ const Register = () => {
                 console.log(result?.user);
                 const user = {
                     name: data?.name,
-                    email: data?.email
+                    email: data?.email,
+                    role: data?.UserRole 
                 }
                 updateUserProfile(data?.name, data?.photo);
                 axiosSecure.post("/users", user)
@@ -166,7 +168,7 @@ const Register = () => {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
-                                {...register("pass", { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\-])(?=.*\d).*$/ , minLength: 6})}
+                                {...register("pass", { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\-])(?=.*\d).*$/, minLength: 6 })}
 
                             />
                             {errors.pass?.type === 'required' && (
@@ -178,7 +180,21 @@ const Register = () => {
                             {errors.pass?.type === 'minLength' && (
                                 <span className="text-red-600 mt-2">Password must be greater or equal to 6 characters</span>
                             )}
-
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">User Role</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    label="UserRole"
+                                    {...register("role", { required: true })} 
+                                    onChange={(e) => setValue("UserRole", e.target.value)} 
+                                >
+                                    <MenuItem value={"Participant"}>Participant</MenuItem>
+                                    <MenuItem value={"Organizer"}>Organizer</MenuItem>
+                                    <MenuItem value={"Healthcare Professional"}>Healthcare Professional</MenuItem>
+                                </Select>
+                                {errors.age && <span className="text-red-600 mt-2">This field is required*</span>}
+                            </FormControl>
 
 
                             <FormControlLabel
