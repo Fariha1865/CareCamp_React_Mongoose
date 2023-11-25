@@ -31,9 +31,9 @@ const Home = () => {
             {/* <MenuItems></MenuItems>
             <CheckMenu></CheckMenu>
             <Testimonials></Testimonials> */}
-
-            <div className="h-screen">
-                <div className="h-screen flex items-center justify-center relative">
+{/* 
+            <div className="">
+                <div className="flex items-center justify-center relative">
                     <div
                         className="h-96 w-96 flex flex-col items-start justify-start"
                         ref={ref}
@@ -77,10 +77,10 @@ const Home = () => {
                     </div>
                 </div>
 
-                {/* Other content */}
 
-                <div id="targetSection" className="h-screen"></div>
-            </div>
+
+              
+            </div> */}
         </div>
     );
 };

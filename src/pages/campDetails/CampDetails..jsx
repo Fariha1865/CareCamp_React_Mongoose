@@ -4,6 +4,7 @@ import useAxiosSecure from "../../hooks/AxiosSecure";
 import "./details.css"
 import { Button } from "flowbite-react";
 import SectionTitle from "../../Components/SectionTitle";
+import banner from "../../assets/banner2.gif"
 const CampDetails = () => {
 
     const { id } = useParams();
@@ -17,6 +18,7 @@ const CampDetails = () => {
         axiosSecure.get(url)
             .then(result => {
 
+                console.log(result)
                 setCamp(result?.data[0])
             })
 
@@ -75,11 +77,27 @@ const CampDetails = () => {
 
             <h1 className="mt-10 font-serif text-lg shadow-2xl p-5">{camp?.Description}</h1>
 
-            <div>
-                <div className="flex justify-between items-center  h-20 mt-20">
-                    <h1 className="text-black font-bold text-xl"><span className="text-blue-800 underline mb-3">Specialized Services:</span><br /> <li>{camp?.SpecializedServices[0]}</li><li>{camp?.SpecializedServices[1]}</li></h1>
-                    <h1 className="text-black font-bold text-xl"><span className="text-blue-800 underline mb-3">Healthcare Professionals:</span><br /> <li>{camp?.HealthcareProfessionals[0].Name},{camp?.HealthcareProfessionals[0].Specialty}</li><li>{camp?.HealthcareProfessionals[1].Name},{camp?.HealthcareProfessionals[1].Specialty}</li></h1>
-
+            <div className="mb-20 mt-28">
+                <div className="flex flex-col md:flex-row justify-between items-center ">
+                    <div>
+                        <h1 className="text-black font-bold text-xl"><span className="text-blue-800 underline mb-3">Specialized Services:</span><br /> </h1>
+                        <ul className="list-disc list-inside mt-3">
+                            {camp?.SpecializedServices?.map((service, index) => (
+                                <li key={index}>{service}</li>
+                            ))}
+                        </ul>
+                    </div>
+                    <img src={banner} alt="" className="w-[300px] h-[100px]" />
+                    <div>
+                        <h1 className="text-black font-bold text-xl"><span className="text-blue-800 underline mb-3">Healthcare Professionals:</span><br /> </h1>
+                        <ul className="list-disc list-inside mt-3">
+                            {camp?.HealthcareProfessionals?.map((service, index) => (
+                                <li key={index}>{service?.Name}, {service?.Specialty}</li>
+                            ))}
+                        </ul>
+                    </div>
+                    
+                   
                 </div>
             </div>
         </div>
