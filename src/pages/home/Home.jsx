@@ -14,8 +14,8 @@ import PopularCamps from "./popularCamps/PopularCamps";
 
 const Home = () => {
     const { ref, inView } = useInView({
-        // triggerOnce: true,
-        threshold: 0.25, // Adjust this threshold as needed
+     
+        threshold: 0.25,
     });
 
     return (

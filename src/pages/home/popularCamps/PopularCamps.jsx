@@ -54,7 +54,7 @@ const PopularCamps = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-4 p-14">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-14">
                 {
                     allCamps?.map(camp => <PopularCamp key={camp._id} camp={camp}></PopularCamp>)
                 }
