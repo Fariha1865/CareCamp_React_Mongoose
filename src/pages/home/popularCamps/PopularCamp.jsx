@@ -1,6 +1,7 @@
 import { Button } from "flowbite-react";
 import "../style.css"
 import Aos from "aos";
+import { Link } from "react-router-dom";
 
 const PopularCamp = ({ camp }) => {
     Aos.init({
@@ -33,7 +34,7 @@ const PopularCamp = ({ camp }) => {
                         </div>
                         <div className="flex mt-5 justify-between">
                             <h1 className="text-black font-bold text-xs mt-3"><span className="text-blue-800">Target Audience:</span> {camp?.TargetAudience}</h1>
-                            <Button gradientDuoTone="greenToBlue">Details</Button>
+                            <Link to={`/details/${camp?._id}`}><Button gradientDuoTone="greenToBlue" >Details</Button></Link>
                         </div>
                     </div>
                     <div className="blob">

@@ -8,9 +8,9 @@ import Order from "../pages/order/Order";
 import Dashboard from "../layout/Dashboard";
 import Users from "../pages/dashboard/Users";
 import PrivateRoute from "./Privateroute";
-import AdminRoute from "./AdminRoute";
 import Login2 from "../pages/login/Login2";
 import Register from "../pages/register/Register";
+import CampDetails from "../pages/campDetails/CampDetails.";
 
 
 
@@ -40,6 +40,10 @@ const router = createBrowserRouter([
         {
             path: "/register",
             element: <Register></Register>
+        },
+        {
+            path: "/details/:id",
+            element: <CampDetails/>
         },
     ]
   },

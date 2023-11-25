@@ -44,7 +44,7 @@ const PopularCamps = () => {
                 <PageCovers image={banner} title="Popular Medical Camps Near You!" subTitle="Dive into a curated selection of sought-after medical camps featuring specialized services. Engage with skilled healthcare professionals, access expert advice, and prioritize your well-being. Convenient schedules and locations make proactive healthcare accessible for everyone"></PageCovers>
             </div>
 
-            <SectionTitle subheading="---Explore popular medical camps offering diverse servicess---" heading="Popular Camps"></SectionTitle>
+            <SectionTitle subheading="---Explore popular medical camps offering diverse services---" heading="Popular Camps"></SectionTitle>
 
             <div className="flex justify-center mt-5" >
                 <div data-aos="zoom-in">
