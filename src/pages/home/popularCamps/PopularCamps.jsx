@@ -18,7 +18,6 @@ const PopularCamps = () => {
 
     let [camps] = UseCampsData();
 
-
     const [allCamps, setAllCamps] = useState([]);
     const [sortAscending, setSortAscending] = useState(true); 
 
