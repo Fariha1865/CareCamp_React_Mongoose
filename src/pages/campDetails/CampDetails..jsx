@@ -49,6 +49,8 @@ const CampDetails = () => {
         const formData = new FormData(form);
 
         const registeredParticipant = {
+
+            campId: camp?._id,
             name: formData.get('name'),
             email: formData.get('email'),
             age: formData.get('age'),
@@ -65,7 +67,7 @@ const CampDetails = () => {
             console.log(result)
         })
         setOpenModal(false);
-        Swal.fire("Invalid login credentials");
+        Swal.fire("You joined this camp successfully");
     }
 
     return (

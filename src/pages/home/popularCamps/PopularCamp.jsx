@@ -12,7 +12,7 @@ const PopularCamp = ({ camp }) => {
 
 
     return (
-        <div>
+        <div className="mb-10">
 
             {/* <div data-aos="flip-left"
                 data-aos-easing="ease-out-cubic"
