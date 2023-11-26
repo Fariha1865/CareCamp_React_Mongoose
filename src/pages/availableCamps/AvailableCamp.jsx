@@ -34,7 +34,7 @@ const AvailableCamp = ({ camp }) => {
 
         const registeredParticipant = {
 
-            campId: campId,
+            campData: camp,
             name: formData.get('name'),
             email: formData.get('email'),
             age: formData.get('age'),
@@ -43,6 +43,7 @@ const AvailableCamp = ({ camp }) => {
             address: formData.get('address'),
             special: formData.get('special'),
             emergency: formData.get('emergency'),
+            payment: "Unpaid"
         };
         console.log(registeredParticipant)
 

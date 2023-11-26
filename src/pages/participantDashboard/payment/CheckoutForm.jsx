@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import useAxiosSecureCalls from "../../../hooks/AxiosSecureCalls";
 import UseAuth from "../../../hooks/UseAuth";
 import Swal from "sweetalert2";
-
+import moment from 'moment';
 
 
 
 const CheckoutForm = ({ camp }) => {
-
+   
+    const currentDateUTC = moment.utc();
     const stripe = useStripe();
     const elements = useElements();
     const [error, setError] = useState('');
@@ -21,12 +22,14 @@ const CheckoutForm = ({ camp }) => {
     console.log(camp?.campData?.CampFees)
     useEffect(() => {
 
+       if(camp?.campData?.CampFees >0){
         axiosSecure.post('/create-payment-intent', { price: camp?.campData?.CampFees })
-            .then(res => {
-                console.log(res.data.clientSecret);
-                setClientSecret(res.data.clientSecret);
-            })
+        .then(res => {
+            console.log(res.data.clientSecret);
+            setClientSecret(res.data.clientSecret);
+        })
 
+       }
 
     }, [axiosSecure, camp?.campData?.CampFees])
 
@@ -91,33 +94,40 @@ const CheckoutForm = ({ camp }) => {
                         })
                
 
-                // const payment = {
-                //     email: user?.email,
-                //     price: fees,
-                //     transactionId: paymentIntent.id,
-                //     date: new Date(), // utc date convert. use moment js to 
-                //     menuItemIds: cart.map(item => item.menuId),
-                //     status: 'pending'
-                // }
+                const payment = {
+                    email: user?.email,
+                    price: camp?.campData?.CampFees,
+                    transactionId: paymentIntent.id,
+                    date: currentDateUTC.format('YYYY-MM-DD HH:mm:ss'), // utc date convert. use moment js to 
+                    campData: camp?.campData,
+                    status: 'Success'
+                }
+                console.log(payment)
 
-                // const res = await axiosSecure.post('/payments', payment);
-                // console.log('payment saved', res.data);
-                // refetch();
-                // if (res.data?.paymentResult?.insertedId) {
-                //     Swal.fire({
-                //         position: "top-end",
-                //         icon: "success",
-                //         title: "Thank you for the taka paisa",
-                //         showConfirmButton: false,
-                //         timer: 1500
-                //     });
+                const res = await axiosSecure.post('/payments', payment);
+                console.log('payment saved', res.data);
+                if (res.data?.insertedId) {
+                    Swal.fire("Your Payment is Successful");
+                    axiosSecure.get(`/registeredUser/${user?.email}`)
+                    .then(data => {
+                        console.log(data.data)
+                        const campAllData = data?.data?.find(item => item.campData?._id === camp?.campData?._id);
+                        axiosSecure.patch(`/joinedParticipants/${campAllData?._id}`)
+                        .then(res=>{
+                            console.log(res)
+                        })
+                        
+        
+                    })
 
 
                 }
             }
-
-
         }
+    }
+        
+
+        
     
 
 
@@ -142,7 +152,7 @@ const CheckoutForm = ({ camp }) => {
                         }}
                     />
 
-                    <Button gradientDuoTone="greenToBlue" className="border-2 mt-20 border-blue-800" type="submit" disabled={!stripe || !clientSecret}>Pay</Button>
+                    <Button gradientDuoTone="greenToBlue" className="border-2 mt-20 border-blue-800" type="submit" disabled={!stripe || !clientSecret || transactionId} >Pay</Button>
                     <p className="text-red-600">{error}</p>
                     {transactionId && <p className="text-blue-700 mt-10"> <span className="text-lg font-bold">Your transaction id:</span> {transactionId}</p>}
 
