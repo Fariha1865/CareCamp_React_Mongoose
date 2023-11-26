@@ -1,7 +1,6 @@
 import { FaBook,  FaEnvelope, FaHome, FaList, FaUtensils } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
-import UserData from "../hooks/UserData";
-import useAdmin from "../hooks/UseAdmin";
+
 
 
 
@@ -22,7 +21,7 @@ const ParticipantDashboard = () => {
 
                     <li className="flex gap-2 items-center">
                         <FaHome></FaHome>
-                        <NavLink to="/dashboard/adminHome">
+                        <NavLink to="/participantDashboard/participant">
 
                             Participant Profile</NavLink>
                     </li>

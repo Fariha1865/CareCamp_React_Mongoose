@@ -11,6 +11,7 @@ import Register from "../pages/register/Register";
 import CampDetails from "../pages/campDetails/CampDetails.";
 import AvailableCamps from "../pages/availableCamps/AvailableCamps";
 import ParticipantDashboard from "../layout/ParticipantDashboard";
+import UserProfile from "../pages/participantDashboard/UserProfile";
 
 
 
@@ -54,7 +55,7 @@ const router = createBrowserRouter([
 
         {
             path: "participant",
-            element: <Users/>
+            element: <UserProfile/>
         },
        
     ]

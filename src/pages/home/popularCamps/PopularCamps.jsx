@@ -1,5 +1,4 @@
 import PageCovers from "../../../Components/PageCovers";
-import UseCampsData from "../../../hooks/UseCampsData";
 import PopularCamp from "./PopularCamp";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -9,24 +8,41 @@ import banner from "../../../assets/home/banner2.jpg"
 import SectionTitle from "../../../Components/SectionTitle";
 import { Button } from "flowbite-react";
 import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../hooks/AxiosSecure";
+
 const PopularCamps = () => {
+    const axiosSecure = useAxiosSecure();
+    const [camps,setCamps] = useState();
     AOS.init({
         // Customize your settings here, such as duration, easing, etc.
         duration: 2000,
         easing: 'ease-out-cubic'
     });
 
-    let [camps] = UseCampsData();
+    // let [camps] = UseCampsData();
+    useEffect(()=>{
+        axiosSecure.get('/camps')
+        .then(res=>{
+           
+           setCamps(res?.data?.slice(0, 8))
+            
+        })
+              
+        
+
+    },[axiosSecure])
 
     const [allCamps, setAllCamps] = useState([]);
     const [sortAscending, setSortAscending] = useState(true); 
 
-    camps = camps.slice(0, 8);
+
 
     useEffect(()=>{
    
-         setAllCamps([...camps])
+         setAllCamps(camps)
     },[camps])
+
+    console.log(allCamps)
 
     const handleSort = () => {
         const sorted = [...allCamps].sort((campA, campB) => {
