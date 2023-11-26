@@ -10,6 +10,7 @@ import UseAuth from "../../hooks/UseAuth";
 import useAxiosSecureCalls from "../../hooks/AxiosSecureCalls";
 import { Button } from "flowbite-react";
 import SectionTitle from "../../Components/SectionTitle";
+import { Link } from "react-router-dom";
 
 const RegisteredCamps = () => {
 
@@ -146,7 +147,7 @@ const RegisteredCamps = () => {
         { label: "DateTime", renderCell: (item) => <h1 title={item?.campData?.ScheduledDateTime} className="text-sm font-bold">{item?.campData?.ScheduledDateTime}</h1> , resize: true },
         { label: "Payment status", renderCell: () => <h1 className="text-sm font-bold text-center">Unpaid</h1> },
         { label: "Confirmation Status", renderCell: () => <h1 className="text-sm font-bold">Pending...</h1> },
-        { label: "Payment status", renderCell: () => <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800" >Pay</Button> },
+        { label: "Payment status", renderCell: () => <Link to="/participantDashboard/payment"><Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800" >Pay</Button></Link> },
 
     ];
     return (
