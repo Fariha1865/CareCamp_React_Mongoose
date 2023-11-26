@@ -33,7 +33,7 @@ const ParticipantDashboard = () => {
                     </li>
                     <li className="mt-5 flex gap-2 items-center">
                         <FaList></FaList>
-                        <NavLink to="/dashboard/manageItems">
+                        <NavLink to="/participantDashboard/paymentHistory">
 
                             Payment History</NavLink>
                     </li>
