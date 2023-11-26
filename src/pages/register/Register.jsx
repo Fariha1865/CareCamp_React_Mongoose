@@ -27,7 +27,7 @@ const defaultTheme = createTheme();
 
 const Register = () => {
 
-    const { register, handleSubmit, formState: { errors } ,setValue } = useForm();
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm();
     const { createUser, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
     const axiosSecure = useAxiosSecure();
@@ -43,7 +43,8 @@ const Register = () => {
                 const user = {
                     name: data?.name,
                     email: data?.email,
-                    role: data?.UserRole 
+                    role: data?.UserRole,
+                    gender: data?.gender
                 }
                 updateUserProfile(data?.name, data?.photo);
                 axiosSecure.post("/users", user)
@@ -180,20 +181,40 @@ const Register = () => {
                             {errors.pass?.type === 'minLength' && (
                                 <span className="text-red-600 mt-2">Password must be greater or equal to 6 characters</span>
                             )}
+                            <div className='my-3'>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">User Role</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        label="UserRole"
+                                        name="role"
+                                        {...register("role", { required: true })}
+                                        onChange={(e) => setValue("UserRole", e.target.value)}
+                                    >
+                                        <MenuItem value={"Participant"}>Participant</MenuItem>
+                                        <MenuItem value={"Organizer"}>Organizer</MenuItem>
+                                        <MenuItem value={"Healthcare Professional"}>Healthcare Professional</MenuItem>
+                                    </Select>
+                                    {errors.role && <span className="text-red-600 mt-2">This field is required*</span>}
+                                </FormControl>
+                            </div>
+
                             <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">User Role</InputLabel>
+                                <InputLabel id="demo-simple-select-label">Gender</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    label="UserRole"
-                                    {...register("role", { required: true })} 
-                                    onChange={(e) => setValue("UserRole", e.target.value)} 
+                                    label="gender"
+                                    name="gender"
+                                    {...register("gender", { required: true })}
+                                    onChange={(e) => setValue("gender", e.target.value)}
                                 >
-                                    <MenuItem value={"Participant"}>Participant</MenuItem>
-                                    <MenuItem value={"Organizer"}>Organizer</MenuItem>
-                                    <MenuItem value={"Healthcare Professional"}>Healthcare Professional</MenuItem>
+                                    <MenuItem value={"Male"}>Male</MenuItem>
+                                    <MenuItem value={"Female"}>Female</MenuItem>
+
                                 </Select>
-                                {errors.age && <span className="text-red-600 mt-2">This field is required*</span>}
+                                {errors.gender && <span className="text-red-600 mt-2">This field is required*</span>}
                             </FormControl>
 
 
