@@ -4,14 +4,29 @@ import UseAuth from "../../hooks/UseAuth";
 
 import { Dropdown, Navbar } from 'flowbite-react';
 import UserData from "../../hooks/UserData";
+import useAxiosSecure from "../../hooks/AxiosSecure";
+import { useEffect, useState } from "react";
 
 const NavigationBar = () => {
 
     const { user, logOut } = UseAuth();
     const [userData] = UserData();
+    const axiosSecure = useAxiosSecure();
+    const [userRole, setUserRole] = useState(null);
 
 
 
+    useEffect(() => {
+
+        axiosSecure.get(`user/${user?.email}`)
+            .then(res => {
+                const role = res?.data[0]?.role;
+                setUserRole(role);
+            })
+            .catch(error => {
+                console.error("Error fetching user role:", error);
+            });
+    }, [axiosSecure, user?.email]);
 
 
     const handleLogout = () => {
@@ -29,7 +44,19 @@ const NavigationBar = () => {
             <NavLink to="/">Home</NavLink>
             <NavLink to="/allCamps">Available Camps</NavLink>
             <NavLink to="/order/pizza">Our Shop</NavLink>
-            <NavLink to="/dashboard">Dashboard</NavLink>
+            {
+                userRole === "Participant" ? 
+
+                <NavLink to="participantDashboard/participant">Dashboard</NavLink>
+
+                :
+                userRole === "Organizer" ? 
+
+                <NavLink to="organizerDashboard/organizer">ODashboard</NavLink>
+                :
+                <NavLink to="healthProfDashboard/healthProf">HDashboard</NavLink>
+            }
+
         </div>
     </>
     return (

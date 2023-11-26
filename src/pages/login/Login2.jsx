@@ -17,6 +17,8 @@ import { useForm } from "react-hook-form"
 import { AuthContext } from "../../Providers/Authprovider";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import UserData from '../../hooks/UserData';
+import useAxiosSecure from '../../hooks/AxiosSecure';
 
 
 
@@ -30,7 +32,8 @@ const Login2 = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [backgroundImage, setBackgroundImage] = useState('');
-
+    const axiosSecure = useAxiosSecure();
+    const [url, setUrl] = useState("");
     useEffect(() => {
         // Array of your 10 image URLs
         const myImages = [
@@ -40,8 +43,8 @@ const Login2 = () => {
             'https://i.ibb.co/cYBrXFV/ezgif-com-video-to-gif.gif'
 
 
-         
- 
+
+
         ];
 
         const randomNumber = Math.floor(Math.random() * 4);
@@ -50,21 +53,39 @@ const Login2 = () => {
     }, []);
 
 
-    const from = location.state?.from?.pathname || "/";
-    // const {  watch } = useForm();
 
+
+    // const {  watch } = useForm();
+    const from = location.state?.from?.pathname || "/";
     const onSubmit = (data, e) => {
         console.log(data);
         e.target.reset();
         signInUser(data.email, data.pass)
             .then(result => {
-                console.log(result?.user);
+
                 updateUserProfile(data?.name, data?.photo);
                 Swal.fire("User logged in successfully");
-                setTimeout(function () {
-                    navigate(location?.state ? location.state : "/");
-                }, 2000);
-                navigate(from, { replace: true });
+
+
+                axiosSecure.get(`user/${data.email}`)
+                    .then(res => {
+                        if (res?.data[0]?.role === "Participant") {
+                            console.log("participantttt")
+                            return navigate("/participantDashboard/participant");
+                        }
+
+                        else {
+                            setTimeout(function () {
+                                navigate(from, { replace: true });
+                            }, 2000);
+                        }
+                    })
+
+                console.log(url)
+
+
+
+
             })
             .catch(error => {
                 console.log(error);
@@ -132,7 +153,7 @@ const Login2 = () => {
 
                             <TextField
                                 margin="normal"
-                             
+
                                 fullWidth
                                 id="email"
                                 label="Email Address"
@@ -142,10 +163,10 @@ const Login2 = () => {
                                 autoFocus
                                 {...register("email", { required: true })}
                             />
-                             {errors.email && <span className="text-red-600 mt-2">This field is required*</span>}
+                            {errors.email && <span className="text-red-600 mt-2">This field is required*</span>}
                             <TextField
                                 margin="normal"
-                               
+
                                 fullWidth
                                 name="password"
                                 label="Password"
@@ -153,14 +174,14 @@ const Login2 = () => {
                                 id="password"
                                 autoComplete="current-password"
                                 {...register("pass", { required: true })}
-                                
+
                             />
                             {errors.pass && <span className="text-red-600 mt-2">This field is required*</span>}
 
                             <LoadCanvasTemplate />
                             <TextField
                                 margin="normal"
-                              
+
                                 fullWidth
                                 name="captcha"
                                 label="captcha"
@@ -169,7 +190,7 @@ const Login2 = () => {
                                 autoComplete="Enter captcha"
                                 onChange={handleCaptcha}
                             />
-                            
+
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"

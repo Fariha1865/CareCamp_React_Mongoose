@@ -3,15 +3,14 @@ import {
 } from "react-router-dom";
 import Root from "../layout/Root";
 import Home from "../pages/Home/Home";
-import MenuPage from "../pages/Menu/MenuPage";
 import Order from "../pages/order/Order";
-import Dashboard from "../layout/Dashboard";
-import Users from "../pages/dashboard/Users";
+import Users from "../pages/participantDashboard/Users";
 import PrivateRoute from "./Privateroute";
 import Login2 from "../pages/login/Login2";
 import Register from "../pages/register/Register";
 import CampDetails from "../pages/campDetails/CampDetails.";
 import AvailableCamps from "../pages/availableCamps/AvailableCamps";
+import ParticipantDashboard from "../layout/ParticipantDashboard";
 
 
 
@@ -49,12 +48,12 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: "/dashboard",
-    element: <Dashboard/>,
+    path: "/participantDashboard",
+    element: <ParticipantDashboard/>,
     children: [
 
         {
-            path: "users",
+            path: "participant",
             element: <Users/>
         },
        

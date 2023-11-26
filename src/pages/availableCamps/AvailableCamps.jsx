@@ -19,8 +19,6 @@ const AvailableCamps = () => {
     const [allCamps, setAllCamps] = useState([]);
     const [sortAscending, setSortAscending] = useState(true); 
 
-    // camps = camps.slice(0, 8);
-
     useEffect(()=>{
    
          setAllCamps([...camps])

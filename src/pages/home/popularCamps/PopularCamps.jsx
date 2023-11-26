@@ -21,7 +21,7 @@ const PopularCamps = () => {
     const [allCamps, setAllCamps] = useState([]);
     const [sortAscending, setSortAscending] = useState(true); 
 
-    // camps = camps.slice(0, 8);
+    camps = camps.slice(0, 8);
 
     useEffect(()=>{
    
