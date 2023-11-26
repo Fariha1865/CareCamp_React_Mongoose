@@ -50,7 +50,7 @@ const CampDetails = () => {
 
         const registeredParticipant = {
 
-            campId: camp?._id,
+            campData: camp,
             name: formData.get('name'),
             email: formData.get('email'),
             age: formData.get('age'),

@@ -4,7 +4,6 @@ import {
 import Root from "../layout/Root";
 import Home from "../pages/Home/Home";
 import Order from "../pages/order/Order";
-import Users from "../pages/participantDashboard/Users";
 import PrivateRoute from "./Privateroute";
 import Login2 from "../pages/login/Login2";
 import Register from "../pages/register/Register";
@@ -12,6 +11,7 @@ import CampDetails from "../pages/campDetails/CampDetails.";
 import AvailableCamps from "../pages/availableCamps/AvailableCamps";
 import ParticipantDashboard from "../layout/ParticipantDashboard";
 import UserProfile from "../pages/participantDashboard/UserProfile";
+import RegisteredCamps from "../pages/participantDashboard/RegisteredCamps";
 
 
 
@@ -56,6 +56,10 @@ const router = createBrowserRouter([
         {
             path: "participant",
             element: <UserProfile/>
+        },
+        {
+            path: "registeredCamps",
+            element: <RegisteredCamps/>
         },
        
     ]

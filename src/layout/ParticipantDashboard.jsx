@@ -27,7 +27,7 @@ const ParticipantDashboard = () => {
                     </li>
                     <li className="mt-5 flex gap-2 items-center">
                         <FaUtensils></FaUtensils>
-                        <NavLink to="/dashboard/addItems">
+                        <NavLink to="/participantDashboard/registeredCamps">
 
                             Registered Camps</NavLink>
                     </li>
