@@ -24,7 +24,7 @@ const PopularCamp = ({ camp }) => {
                         <h1 className="text-black text-lg font-bold text-center mt-3">{camp?.CampName}</h1>
                         <h1 className="text-black font-bold text-center text-sm mt-2"><span className="text-blue-800">Date:</span> {camp?.ScheduledDateTime}, <span className="text-blue-800">Participants:</span> {camp?.Participants}</h1>
                         <div className="flex gap-10 items-center mt-3 h-10">
-                            <h1 className="text-black font-bold "><span className="text-blue-800">CampFees:</span> {camp?.CampFees}</h1>
+                            <h1 className="text-black font-bold "><span className="text-blue-800">CampFees:</span> ${camp?.CampFees}</h1>
                             <h1 className="text-black font-bold text-xs">{camp?.Venue}, {camp?.Location}</h1>
                         </div>
                         <div className="flex gap-10 items-center mt-3 h-20">

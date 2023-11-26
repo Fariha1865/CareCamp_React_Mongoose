@@ -87,7 +87,7 @@ const CampDetails = () => {
                                     <h1><span className="text-lg text-blue-800 font-bold underline mr-5">Date & Time:</span> {camp?.ScheduledDateTime}</h1>
                                     <h1><span className="text-lg text-blue-800 font-bold underline mr-5">Target Audience:</span> {camp?.TargetAudience}</h1>
                                     <h1><span className="text-lg text-blue-800 font-bold underline mr-5">Total Registered Participants:</span> {camp?.Participants}</h1>
-                                    <h1><span className="text-lg text-blue-800 font-bold underline mr-5">Camp Fees:</span> {camp?.CampFees}</h1>
+                                    <h1><span className="text-lg text-blue-800 font-bold underline mr-5">Camp Fees:</span> ${camp?.CampFees}</h1>
 
                                     {
                                         userData[0]?.role === "Participant" ?

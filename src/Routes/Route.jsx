@@ -63,7 +63,7 @@ const router = createBrowserRouter([
             element: <RegisteredCamps/>
         },
         {
-            path: "payment",
+            path: "payment/:id",
             element: <Payment/>
         },
        
