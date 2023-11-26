@@ -11,7 +11,7 @@ const UseCampsData = () => {
 
 
 
-    const { data: camps = [] ,refetch} = useQuery({
+    const { data: camps = []} = useQuery({
         queryKey: ['camps'],
         queryFn: async () => {
 
@@ -23,7 +23,7 @@ const UseCampsData = () => {
     })
 
 
-    return [camps,refetch];
+    return [camps];
 };
 
 export default UseCampsData;

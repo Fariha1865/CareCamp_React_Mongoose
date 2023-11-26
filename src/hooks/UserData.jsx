@@ -1,21 +1,24 @@
 import {
     useQuery,
 } from '@tanstack/react-query'
-import useAxiosSecureCalls from './AxiosSecureCalls';
+import { useContext } from 'react';
+import { AuthContext } from '../Providers/Authprovider';
+import useAxiosSecure from './AxiosSecure';
 
 
 
 const UserData = () => {
 
-    const axiosSecureCalls = useAxiosSecureCalls();
+    const axiosSecure = useAxiosSecure();
+    const {user} = useContext(AuthContext);
 
 
 
-    const { data: users = [] ,refetch} = useQuery({
+    const { data: userData = [] ,refetch} = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
 
-            const res = await axiosSecureCalls.get('/users');
+            const res = await axiosSecure.get(`user/${user?.email}`);
             return res.data;
         },
 
@@ -23,7 +26,7 @@ const UserData = () => {
     })
 
 
-    return [users,refetch];
+    return [userData,refetch];
 };
 
 export default UserData;

@@ -8,7 +8,7 @@ import UserData from "../../hooks/UserData";
 const NavigationBar = () => {
 
     const { user, logOut } = UseAuth();
-    const [users] = UserData();
+    const [userData] = UserData();
 
 
 
@@ -55,7 +55,7 @@ const NavigationBar = () => {
                                 <Dropdown.Header>
                                     <span className="block text-sm mb-3">{user?.displayName}</span>
                                     <span className="block truncate text-sm font-medium mb-3">{user?.email}</span>
-                                    <span className="block truncate text-sm font-bold text-blue-800">Role: {users[0]?.role}</span>
+                                    <span className="block truncate text-sm font-bold text-blue-800">Role: {userData[0]?.role}</span>
                                 </Dropdown.Header>
                                 <Dropdown.Item>Dashboard</Dropdown.Item>
                                 {/* <Dropdown.Item>Settings</Dropdown.Item>

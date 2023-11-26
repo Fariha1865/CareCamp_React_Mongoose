@@ -5,11 +5,14 @@ import "./details.css"
 import { Button } from "flowbite-react";
 import SectionTitle from "../../Components/SectionTitle";
 import banner from "../../assets/banner2.gif"
+import UserData from "../../hooks/UserData";
 const CampDetails = () => {
 
     const { id } = useParams();
     const axiosSecure = useAxiosSecure();
     const [camp, setCamp] = useState([]);
+    const [userData] = UserData();
+
 
     const url = `/details/${id}`
 
@@ -23,7 +26,7 @@ const CampDetails = () => {
             })
 
     }, [axiosSecure, url])
-    console.log(id)
+
     return (
         <div className="max-w-6xl mx-auto pt-24">
             <SectionTitle subheading="" heading={camp?.CampName}></SectionTitle>
@@ -43,7 +46,13 @@ const CampDetails = () => {
                                     <h1><span className="text-lg text-blue-800 font-bold underline mr-5">Total Registered Participants:</span> {camp?.Participants}</h1>
                                     <h1><span className="text-lg text-blue-800 font-bold underline mr-5">Camp Fees:</span> {camp?.CampFees}</h1>
 
-                                    <Button gradientDuoTone="greenToBlue" className="mt-4">Join This Camp</Button>
+                                     {
+                                        userData[0]?.role === "Participant" ?
+                                        <Button gradientDuoTone="greenToBlue" className="mt-4">Join This Camp</Button>
+                                        : 
+                                        ""
+                                     }
+                                    
                                 </div>
 
                             </div>
@@ -63,7 +72,12 @@ const CampDetails = () => {
                                 <small className="badge">Interested ?</small>
                                 <div className="description">
                                     <div className="title">
-                                        <Button gradientDuoTone="greenToBlue" >Join This Camp</Button>
+                                    {
+                                        userData[0]?.role === "Participant" ?
+                                        <Button gradientDuoTone="greenToBlue" className="mt-4">Join This Camp</Button>
+                                        : 
+                                        ""
+                                     }
 
                                     </div>
 
