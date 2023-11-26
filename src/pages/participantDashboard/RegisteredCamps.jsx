@@ -11,6 +11,7 @@ import useAxiosSecureCalls from "../../hooks/AxiosSecureCalls";
 import { Button } from "flowbite-react";
 import SectionTitle from "../../Components/SectionTitle";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const RegisteredCamps = () => {
 
@@ -47,31 +48,37 @@ const RegisteredCamps = () => {
     }
     console.log(campData)
 
-    // const handleDelete = (user) => {
-    //     Swal.fire({
-    //         title: "Are you sure?",
+    const handleDelete = (data) => {
+        Swal.fire({
+            title: "Are you sure?",
 
-    //         showCancelButton: true,
-    //         confirmButtonText: "Delete from cart",
+            showCancelButton: true,
+            confirmButtonText: "Delete from registered list",
 
-    //     }).then((result) => {
-    //         /* Read more about isConfirmed, isDenied below */
-    //         if (result.isConfirmed) {
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
 
-    //             axiosSecure.delete(`/users/${user?._id}`)
-    //                 .then(data => {
-    //                     console.log(data)
-    //                     Swal.fire("Item deleted from your cart successfully");
-    //                     refetch();
-    //                 })
+                axiosSecure.delete(`/joinedParticipants/${data?._id}`)
+                    .then(data => {
+                        console.log(data)
+                        Swal.fire("Camp deleted from your registered list");
+                        axiosSecure.get(`/registeredUser/${user?.email}`)
+                        .then(data => {
+                            console.log(data.data)
+                            setCampData(data.data)
+            
+                        })
+                       
+                    })
 
-    //         } else if (result.isDenied) {
-    //             Swal.fire("Changes are not saved", "", "info");
-    //         }
-    //     });
-    // }
+            } else if (result.isDenied) {
+                Swal.fire("Changes are not saved", "", "info");
+            }
+        });
+    }
 
-   
+
 
     const theme = useTheme([
         getTheme(),
@@ -117,14 +124,24 @@ const RegisteredCamps = () => {
 
     const COLUMNS = [
 
-        { label: "No.", renderCell: (item) => <h1  className="text-xs font-bold ">{item?.serialNumber}</h1> },
+        { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold ">{item?.serialNumber}</h1> },
         { label: "Camp name", renderCell: (item) => <h1 title={item?.campData?.CampName} className="text-sm font-bold">{item?.campData?.CampName}</h1> },
         { label: "Camp Fees", renderCell: (item) => <h1 title={item?.campData?.CampFees} className="text-sm font-bold text-center">{item?.campData?.CampFees}</h1> },
-        { label: "Location", renderCell: (item) => <h1  title={item?.campData?.Venue} className="text-sm font-bold">{item?.campData?.Venue}</h1> , resize: true },
-        { label: "DateTime", renderCell: (item) => <h1 title={item?.campData?.ScheduledDateTime} className="text-sm font-bold">{item?.campData?.ScheduledDateTime}</h1>},
+        { label: "Location", renderCell: (item) => <h1 title={item?.campData?.Venue} className="text-sm font-bold">{item?.campData?.Venue}</h1>, resize: true },
+        { label: "DateTime", renderCell: (item) => <h1 title={item?.campData?.ScheduledDateTime} className="text-sm font-bold">{item?.campData?.ScheduledDateTime}</h1> },
         { label: "Payment status", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.payment}</h1> },
         { label: "Confirmation Status", renderCell: () => <h1 className="text-sm font-bold">Pending...</h1> },
-        { label: "Payment status", renderCell: (item) => <Link to={`/participantDashboard/payment/${item?.campData?._id}`}><Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800" >Pay</Button></Link> },
+        {
+            label: "Payment status", renderCell: (item) =>
+                <div>
+                    <Link to={`/participantDashboard/payment/${item?.campData?._id}`}>
+                        <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20" disabled={item?.payment === "Paid"}>Pay</Button>
+                    </Link>
+                    <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 mt-2 w-20" disabled={item?.payment === "Paid"} onClick={()=>handleDelete(item)}>
+                        Cancel
+                    </Button>
+                </div>
+        },
 
     ];
     return (
@@ -133,7 +150,7 @@ const RegisteredCamps = () => {
 
         <div>
             <div className="flex justify-evenly mb-8">
-            <SectionTitle subheading="---Find all your registered camps here---" heading="Registered Camps"></SectionTitle>
+                <SectionTitle subheading="---Find all your registered camps here---" heading="Registered Camps"></SectionTitle>
 
             </div>
             <div className="max-w-6xl mx-auto md:p-10 px-1">
