@@ -27,7 +27,7 @@ const NavigationBar = () => {
 
         <div className="flex flex-col lg:flex-row gap-5 lg:gap-10 items-center text-base font-extrabold">
             <NavLink to="/">Home</NavLink>
-            <NavLink to="/menu">Available Camps</NavLink>
+            <NavLink to="/allCamps">Available Camps</NavLink>
             <NavLink to="/order/pizza">Our Shop</NavLink>
             <NavLink to="/dashboard">Dashboard</NavLink>
         </div>

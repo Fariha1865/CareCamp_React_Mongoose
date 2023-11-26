@@ -11,6 +11,7 @@ import PrivateRoute from "./Privateroute";
 import Login2 from "../pages/login/Login2";
 import Register from "../pages/register/Register";
 import CampDetails from "../pages/campDetails/CampDetails.";
+import AvailableCamps from "../pages/availableCamps/AvailableCamps";
 
 
 
@@ -26,8 +27,8 @@ const router = createBrowserRouter([
             element: <Home/>
         },
         {
-            path: "/menu",
-            element: <MenuPage/>
+            path: "/allCamps",
+            element: <AvailableCamps/>
         },
         {
             path: "/order/:category",
