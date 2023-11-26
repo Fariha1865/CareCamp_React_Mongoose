@@ -39,7 +39,7 @@ const ParticipantDashboard = () => {
                     </li>
                     <li className="mt-5 mb-5 flex gap-2 items-center">
                         <FaBook></FaBook>
-                        <NavLink to="/dashboard/bookings">
+                        <NavLink to="/participantDashboard/testimonials">
 
                             feedback-and-ratings
                         </NavLink>

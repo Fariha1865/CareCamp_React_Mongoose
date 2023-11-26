@@ -8,10 +8,8 @@ import { getTheme } from "@table-library/react-table-library/baseline";
 import { useEffect, useState } from "react";
 import UseAuth from "../../hooks/UseAuth";
 import useAxiosSecureCalls from "../../hooks/AxiosSecureCalls";
-import { Button } from "flowbite-react";
 import SectionTitle from "../../Components/SectionTitle";
-import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
+
 
 const PaymentHistory = () => {
 
@@ -47,37 +45,6 @@ const PaymentHistory = () => {
         // default
     }
     console.log(campData)
-
-    const handleDelete = (data) => {
-        Swal.fire({
-            title: "Are you sure?",
-
-            showCancelButton: true,
-            confirmButtonText: "Delete from registered list",
-
-        }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-
-                axiosSecure.delete(`/joinedParticipants/${data?._id}`)
-                    .then(data => {
-                        console.log(data)
-                        Swal.fire("Camp deleted from your registered list");
-                        axiosSecure.get(`/registeredUser/${user?.email}`)
-                        .then(data => {
-                            console.log(data.data)
-                            setCampData(data.data)
-            
-                        })
-                       
-                    })
-
-            } else if (result.isDenied) {
-                Swal.fire("Changes are not saved", "", "info");
-            }
-        });
-    }
-
 
 
     const theme = useTheme([
@@ -130,7 +97,7 @@ const PaymentHistory = () => {
         { label: "Location", renderCell: (item) => <h1 title={item?.campData?.Location} className="text-sm font-bold">{item?.campData?.Location}</h1>, resize: true },
         { label: "Venue", renderCell: (item) => <h1 title={item?.campData?.Venue} className="text-sm font-bold">{item?.campData?.Venue}</h1>, resize: true },
         { label: "DateTime", renderCell: (item) => <h1 title={item?.campData?.ScheduledDateTime} className="text-sm font-bold">{item?.campData?.ScheduledDateTime}</h1> },
-        { label: "Payment status", renderCell: (item) => <h1 className="text-sm font-bold text-center">Paid</h1> },
+        { label: "Payment status", renderCell: () => <h1 className="text-sm font-bold text-center">Paid</h1> },
         { label: "Confirmation Status", renderCell: () => <h1 className="text-sm font-bold">Pending...</h1> },
      
         

@@ -14,6 +14,7 @@ import UserProfile from "../pages/participantDashboard/UserProfile";
 import RegisteredCamps from "../pages/participantDashboard/RegisteredCamps";
 import Payment from "../pages/participantDashboard/payment/Payment";
 import PaymentHistory from "../pages/participantDashboard/PaymentHistory";
+import Testimonials from "../pages/participantDashboard/Testimonials";
 
 
 
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
         {
             path: "paymentHistory",
             element: <PaymentHistory/>
+        },
+        {
+            path: "testimonials",
+            element: <Testimonials/>
         },
        
     ]
