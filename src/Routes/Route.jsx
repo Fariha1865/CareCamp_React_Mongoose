@@ -15,6 +15,8 @@ import RegisteredCamps from "../pages/participantDashboard/RegisteredCamps";
 import Payment from "../pages/participantDashboard/payment/Payment";
 import PaymentHistory from "../pages/participantDashboard/PaymentHistory";
 import Testimonials from "../pages/participantDashboard/Testimonials";
+import OrganiserDashboard from "../layout/OrganiserDashboard";
+import OrganiserProfile from "../pages/organiserDashboard/OrganiserProfile";
 
 
 
@@ -77,6 +79,18 @@ const router = createBrowserRouter([
             element: <Testimonials/>
         },
        
+    ]
+  },
+  {
+    path: "/organizerDashboard",
+    element: <OrganiserDashboard/>,
+    children: [
+
+        {
+            path: "organizer",
+            element: <OrganiserProfile/>
+        },
+ 
     ]
   },
 ]);

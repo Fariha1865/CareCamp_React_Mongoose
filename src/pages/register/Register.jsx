@@ -53,7 +53,18 @@ const Register = () => {
                         Swal.fire("user created successfully");
 
                     })
-                navigate("/");
+
+                if (data?.UserRole === "Participant") {
+
+                    return navigate("/participantDashboard/participant");
+                }
+                if (data?.UserRole === "Organizer") {
+
+                    return navigate("/organizerDashboard/organizer");
+                }
+                else {
+                    navigate("/");
+                }
 
             })
         e.target.reset();

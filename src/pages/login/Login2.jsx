@@ -70,8 +70,12 @@ const Login2 = () => {
                 axiosSecure.get(`user/${data.email}`)
                     .then(res => {
                         if (res?.data[0]?.role === "Participant") {
-                            console.log("participantttt")
+                      
                             return navigate("/participantDashboard/participant");
+                        }
+                        if (res?.data[0]?.role === "Organizer") {
+                      
+                            return navigate("/organizerDashboard/organizer");
                         }
 
                         else {
