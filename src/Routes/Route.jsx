@@ -3,7 +3,6 @@ import {
 } from "react-router-dom";
 import Root from "../layout/Root";
 import Home from "../pages/Home/Home";
-import Order from "../pages/order/Order";
 import PrivateRoute from "./Privateroute";
 import Login2 from "../pages/login/Login2";
 import Register from "../pages/register/Register";
@@ -17,6 +16,7 @@ import PaymentHistory from "../pages/participantDashboard/PaymentHistory";
 import Testimonials from "../pages/participantDashboard/Testimonials";
 import OrganiserDashboard from "../layout/OrganiserDashboard";
 import OrganiserProfile from "../pages/organiserDashboard/OrganiserProfile";
+import AddCamp from "../pages/organiserDashboard/AddCamp";
 
 
 
@@ -34,10 +34,6 @@ const router = createBrowserRouter([
         {
             path: "/allCamps",
             element: <AvailableCamps/>
-        },
-        {
-            path: "/order/:category",
-            element: <Order/>
         },
         {
             path: "/login",
@@ -89,6 +85,11 @@ const router = createBrowserRouter([
         {
             path: "organizer",
             element: <OrganiserProfile/>
+        },
+ 
+        {
+            path: "addCamp",
+            element: <AddCamp/>
         },
  
     ]

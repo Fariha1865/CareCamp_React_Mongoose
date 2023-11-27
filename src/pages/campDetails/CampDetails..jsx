@@ -138,21 +138,11 @@ const CampDetails = () => {
             <div className="mb-20 mt-28">
                 <div className="flex flex-col md:flex-row justify-between items-center ">
                     <div>
-                        <h1 className="text-black font-bold text-xl"><span className="text-blue-800 underline mb-3">Specialized Services:</span><br /> </h1>
-                        <ul className="list-disc list-inside mt-3">
-                            {camp?.SpecializedServices?.map((service, index) => (
-                                <li key={index}>{service}</li>
-                            ))}
-                        </ul>
+                        <h1 className="text-black font-bold text-xl"><span className="text-blue-800 underline mb-3">Specialized Services:</span><br />{camp?.SpecializedServices} </h1>
                     </div>
                     <img src={banner} alt="" className="w-[300px] h-[100px]" />
                     <div>
-                        <h1 className="text-black font-bold text-xl"><span className="text-blue-800 underline mb-3">Healthcare Professionals:</span><br /> </h1>
-                        <ul className="list-disc list-inside mt-3">
-                            {camp?.HealthcareProfessionals?.map((service, index) => (
-                                <li key={index}>{service?.Name}, {service?.Specialty}</li>
-                            ))}
-                        </ul>
+                        <h1 className="text-black font-bold text-xl"><span className="text-blue-800 underline mb-3">Healthcare Professionals:</span><br />{camp?.HealthcareProfessionals} </h1>
                     </div>
 
 

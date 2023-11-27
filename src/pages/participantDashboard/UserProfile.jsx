@@ -8,7 +8,7 @@ import useAxiosSecureCalls from "../../hooks/AxiosSecureCalls";
 const UserProfile = () => {
 
     const { user } = UseAuth();
-    const [userData] = UserData();
+    const [userData,refetch] = UserData();
     const [openModal, setOpenModal] = useState(false);
     const axiosSecure = useAxiosSecureCalls();
 
@@ -32,6 +32,7 @@ const UserProfile = () => {
             gender: formData.get('gender'),
             interest: formData.get('interest'),
             age: formData.get('age'),
+            
 
         };
 
@@ -45,6 +46,8 @@ const UserProfile = () => {
                         'Profile has been updated successfully',
                         'success',
                     )
+                    refetch()
+                    onCloseModal();
                     // form.reset();
                 }
             })
@@ -82,7 +85,7 @@ const UserProfile = () => {
                                     </div>
                                     <div className="flex items-center">
                                         <label className=" font-bold">Phone Number:</label>
-                                        {/* <span className="text-blue-700 font-semibold ml-5">{user?.phoneNumber}</span> */}
+                                        <span className="text-blue-700 font-semibold ml-5">{userData[0]?.photo}</span>
                                     </div>
                                     <div className="flex items-center mt-5">
                                         <label className=" font-bold">Gender:</label>
@@ -145,7 +148,7 @@ const UserProfile = () => {
                                 </div>
                                 <div className="flex gap-5 mb-5">
                                     <div className="relative h-11  ">
-                                        <input type="phone" name="phone" defaultValue={userData?.phone}
+                                        <input type="phone" name="phone" defaultValue={userData[0]?.phone} 
                                             className="peer h-full w-full rounded-md border border-blue-700 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
 
                                         />
@@ -174,6 +177,7 @@ const UserProfile = () => {
                                         rows={2} // Set the number of rows you want
                                         cols={32} // Set the number of columns you want
                                         placeholder="Enter your age"
+                                        defaultValue={userData[0]?.age}
 
                                     />
                                 </div>
@@ -185,6 +189,7 @@ const UserProfile = () => {
                                         rows={2} // Set the number of rows you want
                                         cols={32} // Set the number of columns you want
                                         placeholder="Enter your interests in Medical Areas"
+                                        defaultValue={userData[0]?.interest}
 
                                     />
                                 </div>

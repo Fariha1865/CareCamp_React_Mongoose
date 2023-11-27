@@ -28,8 +28,8 @@ const PopularCamp = ({ camp }) => {
                             <h1 className="text-black font-bold text-xs">{camp?.Venue}, {camp?.Location}</h1>
                         </div>
                         <div className="flex gap-10 items-center mt-3 h-20">
-                            <h1 className="text-black font-bold text-xs"><span className="text-blue-800 underline mb-3">Specialized Services:</span><br /> <li>{camp?.SpecializedServices[0]}</li><li>{camp?.SpecializedServices[1]}</li></h1>
-                            <h1 className="text-black font-bold text-xs"><span className="text-blue-800 underline mb-3">Healthcare Professionals:</span><br /> <li>{camp?.HealthcareProfessionals[0].Name},{camp?.HealthcareProfessionals[0].Specialty}</li><li>{camp?.HealthcareProfessionals[1].Name},{camp?.HealthcareProfessionals[1].Specialty}</li></h1>
+                            <h1 className="text-black font-bold text-xs"><span className="text-blue-800 underline mb-3">Specialized Services:</span><br />{camp?.SpecializedServices}</h1>
+                            <h1 className="text-black font-bold text-xs"><span className="text-blue-800 underline mb-3">Healthcare Professionals:</span><br /> {camp?.HealthcareProfessionals}</h1>
 
                         </div>
                         <div className="flex mt-5 justify-between">

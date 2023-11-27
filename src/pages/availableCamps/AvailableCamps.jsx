@@ -38,7 +38,7 @@ const AvailableCamps = () => {
         <div className='pt-20'>
 
 
-            <SectionTitle subheading="---Explore popular medical camps offering diverse services---" heading="Popular Camps"></SectionTitle>
+            <SectionTitle subheading="---Explore All the medical camps offering diverse services---" heading="Available Camps"></SectionTitle>
 
             <div className="flex justify-center pt-5" >
                 <div data-aos="zoom-in">
