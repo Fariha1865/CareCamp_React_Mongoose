@@ -20,7 +20,9 @@ import useAxiosSecure from "../../hooks/AxiosSecure";
 const Testimonials = () => {
 
     const [reviews, setReviews] = useState([]);
+    const [campData, setcampData] = useState([]);
     const axiosSecure = useAxiosSecure();
+
 
     const url = "/reviews"
     useEffect(() => {
@@ -29,17 +31,36 @@ const Testimonials = () => {
             .then(data => {
                 // console.log(data.data)
                 setReviews(data.data)
+
+                const promises = data?.data?.map(review => {
+                    return axiosSecure.get(`/details/${review?.campId}`)
+                        .then(result => result.data[0]);
+                });
+
+                // Wait for all promises to resolve
+                Promise.all(promises)
+                    .then(campDataResults => {
+                        setcampData(campDataResults);
+                    })
+
+
+
             })
+
+
 
     }, [axiosSecure])
 
 
     return (
         <div>
+
+
+            {
+                console.log(campData)
+            }
             <SectionTitle subheading="---What Our Clients Say---" heading="TESTIMONIALS"></SectionTitle>
-            <div className="flex justify-center">
-            <img src={qoute}></img>
-            </div>
+
             <Swiper
                 slidesPerView={1}
                 spaceBetween={30}
@@ -58,17 +79,33 @@ const Testimonials = () => {
 
 
                 {
-                    reviews.map(review =>
+                    reviews.map((review, index) =>
 
                         <SwiperSlide key={review._id} className="px-28">
-                            <div className="flex flex-col justify-center items-center gap-5 px-28">
+                            <h1 className="text-xl font-bold my-5 text-center">{review?.name}</h1>
+                            {
+                                review?.image ?
+                                    <div className="w-40 max-w-4xl mx-auto">
+                                        <img src={review?.image} className=""></img>
+                                        <h1 className="text-center">Shared event image</h1>
+                                    </div>
+                                    :
+                                    <div className="flex justify-center w-40 max-w-4xl mx-auto">
+                                        <img src={qoute} className=""></img>
+                                    </div>
+                            }
+                            <div className="flex flex-col justify-center items-center gap-5 px-28 mb-32 mt-6">
+
                                 <Rating
                                     style={{ maxWidth: 180 }}
-                                    value={review.rating}
+                                    value={review?.rating}
                                     readOnly
                                 />
-                                <p>{review.details}</p>
-                                <h1 className="text-xl font-bold">{review.name}</h1>
+                                <h1 className="text-blue-800 font-bold ">{campData[index]?.CampName}</h1>
+                                <h1><span className="text-blue-800 font-bold mr-3">Camp Date:</span>{campData[index]?.ScheduledDateTime}</h1>
+                                <p>{review?.feedback}</p>
+                                <p><span className="text-blue-800 font-bold mr-3">Testimonial:</span> {review?.testimonial}</p>
+
                             </div>
 
                         </SwiperSlide>)

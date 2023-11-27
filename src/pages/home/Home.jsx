@@ -6,6 +6,8 @@ import Category from "./Category";
 // import Testimonials from "./Testimonials";
 import { useInView } from 'react-intersection-observer';
 import PopularCamps from "./popularCamps/PopularCamps";
+import Testimonials from "./Testimonials";
+
 
 
 
@@ -27,6 +29,8 @@ const Home = () => {
             <Carousel></Carousel>
             <Category></Category>
             <PopularCamps></PopularCamps>
+            <Testimonials></Testimonials>
+          
       
             {/* <MenuItems></MenuItems>
             <CheckMenu></CheckMenu>
