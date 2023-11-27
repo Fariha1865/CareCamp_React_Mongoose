@@ -17,6 +17,7 @@ import Testimonials from "../pages/participantDashboard/Testimonials";
 import OrganiserDashboard from "../layout/OrganiserDashboard";
 import OrganiserProfile from "../pages/organiserDashboard/OrganiserProfile";
 import AddCamp from "../pages/organiserDashboard/AddCamp";
+import ManageCamps from "../pages/organiserDashboard/ManageCamps";
 
 
 
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
         {
             path: "addCamp",
             element: <AddCamp/>
+        },
+        {
+            path: "manageCamp",
+            element: <ManageCamps/>
         },
  
     ]

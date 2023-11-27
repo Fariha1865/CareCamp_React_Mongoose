@@ -2,9 +2,6 @@
 import { CompactTable } from "@table-library/react-table-library/compact";
 import { useTheme } from "@table-library/react-table-library/theme";
 import { getTheme } from "@table-library/react-table-library/baseline";
-
-
-
 import { useEffect, useState } from "react";
 import UseAuth from "../../hooks/UseAuth";
 import useAxiosSecureCalls from "../../hooks/AxiosSecureCalls";
@@ -13,7 +10,7 @@ import SectionTitle from "../../Components/SectionTitle";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const RegisteredCamps = () => {
+const ManageCamps = () => {
 
 
     const { user } = UseAuth();
@@ -26,9 +23,9 @@ const RegisteredCamps = () => {
 
 
     useEffect(() => {
-        axiosSecure.get(`/registeredUser/${user?.email}`)
+        axiosSecure.get(`/camps/${user?.email}`)
             .then(data => {
-                console.log(data.data)
+               
                 setCampData(data.data)
 
             })
@@ -59,11 +56,11 @@ const RegisteredCamps = () => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
 
-                axiosSecure.delete(`/joinedParticipants/${data?._id}`)
+                axiosSecure.delete(`/camps/${data?._id}`)
                     .then(data => {
                         console.log(data)
-                        Swal.fire("Camp deleted from your registered list");
-                        axiosSecure.get(`/registeredUser/${user?.email}`)
+                        Swal.fire("Camp deleted from your camp list");
+                        axiosSecure.get(`/camps/${user?.email}`)
                         .then(data => {
                             console.log(data.data)
                             setCampData(data.data)
@@ -111,12 +108,12 @@ const RegisteredCamps = () => {
         setSearch(event.target.value);
     };
 
-
+    console.log(campData)
     campData = {
 
         nodes: campData?.filter((item) =>
 
-            item?.campData?.CampName?.toLowerCase().includes(search.toLowerCase())
+            item?.CampName?.toLowerCase().includes(search.toLowerCase())
         ),
     };
 
@@ -125,20 +122,21 @@ const RegisteredCamps = () => {
     const COLUMNS = [
 
         { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold ">{item?.serialNumber}</h1> },
-        { label: "Camp name", renderCell: (item) => <h1 title={item?.campData?.CampName} className="text-sm font-bold">{item?.campData?.CampName}</h1> },
-        { label: "Camp Fees", renderCell: (item) => <h1 title={item?.campData?.CampFees} className="text-sm font-bold text-center">{item?.campData?.CampFees}</h1> },
-        { label: "Location", renderCell: (item) => <h1 title={item?.campData?.Venue} className="text-sm font-bold">{item?.campData?.Venue}</h1>, resize: true },
-        { label: "DateTime", renderCell: (item) => <h1 title={item?.campData?.ScheduledDateTime} className="text-sm font-bold">{item?.campData?.ScheduledDateTime}</h1> },
-        { label: "Payment status", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.payment}</h1> },
-        { label: "Confirmation Status", renderCell: () => <h1 className="text-sm font-bold">Pending...</h1> },
+        { label: "Camp name", renderCell: (item) => <h1 title={item?.CampName} className="text-sm font-bold">{item?.CampName}</h1> },
+        { label: "Camp Fees", renderCell: (item) => <h1 title={item?.CampFees} className="text-sm font-bold text-center">{item?.CampFees}</h1> },
+        { label: "Location", renderCell: (item) => <h1 title={item?.Venue} className="text-sm font-bold">{item?.Venue}</h1>, resize: true },
+        { label: "DateTime", renderCell: (item) => <h1 title={item?.ScheduledDateTime} className="text-sm font-bold">{item?.ScheduledDateTime}</h1> },
+        { label: "Specialized Services", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.SpecializedServices}</h1> },
+        { label: "Healthcare Professionals", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.HealthcareProfessionals}</h1> },
+      
         {
-            label: "Actions", renderCell: (item) =>
+            label: "Action", renderCell: (item) =>
                 <div>
-                    <Link to={`/participantDashboard/payment/${item?.campData?._id}`}>
-                        <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20" disabled={item?.payment === "Paid"}>Pay</Button>
-                    </Link>
+              
+                    <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20" disabled={item?.payment === "Paid"}>Update</Button>
+                    
                     <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 mt-2 w-20" disabled={item?.payment === "Paid"} onClick={()=>handleDelete(item)}>
-                        Cancel
+                        Delete
                     </Button>
                 </div>
         },
@@ -174,4 +172,4 @@ const RegisteredCamps = () => {
     );
 };
 
-export default RegisteredCamps;
+export default ManageCamps;

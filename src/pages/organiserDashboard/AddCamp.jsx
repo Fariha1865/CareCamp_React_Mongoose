@@ -1,12 +1,15 @@
 import { useForm } from "react-hook-form";
 
 
-import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
+import { Button, Label, TextInput } from 'flowbite-react';
 import useAxiosSecure from "../../hooks/AxiosSecure";
+import Swal from "sweetalert2";
+import UseAuth from "../../hooks/UseAuth";
 const AddCamp = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, reset,handleSubmit, formState: { errors } } = useForm();
     const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
     const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+    const {user} = UseAuth();
     const axiosSecure = useAxiosSecure();
 
     const onSubmit = (data) => {
@@ -23,7 +26,8 @@ const AddCamp = () => {
             SpecializedServices: data.services,
             HealthcareProfessionals: data.professionals,
             TargetAudience: data.audience,
-            Description: data.description
+            Description: data.description,
+            email: user?.email
 
         }
         fetch(image_hosting_api, {
@@ -35,7 +39,9 @@ const AddCamp = () => {
                 campData['Image'] = res?.data?.display_url;
                 axiosSecure.post("/camps", campData)
                 .then(result => {
+                    Swal.fire("New camp added successfully");
                     console.log(result)
+                    reset();
 
                 })
               

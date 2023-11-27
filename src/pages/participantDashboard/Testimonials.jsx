@@ -12,6 +12,7 @@ import SectionTitle from "../../Components/SectionTitle";
 import { Button, Modal } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import moment from "moment";
+import Swal from "sweetalert2";
 
 
 
@@ -85,6 +86,7 @@ const Testimonials = () => {
                 reviewData['image'] = res?.data?.display_url;
                 axiosSecure.post("/reviews", reviewData)
                     .then(result => {
+                        Swal.fire("Feedback recorded successfully");
                         console.log(result)
 
                     })
