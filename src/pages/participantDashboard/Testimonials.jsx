@@ -10,6 +10,8 @@ import UseAuth from "../../hooks/UseAuth";
 import useAxiosSecureCalls from "../../hooks/AxiosSecureCalls";
 import SectionTitle from "../../Components/SectionTitle";
 import { Button, Modal } from "flowbite-react";
+import { useForm } from "react-hook-form";
+import moment from "moment";
 
 
 
@@ -19,8 +21,17 @@ const Testimonials = () => {
     const { user } = UseAuth();
     let [campData, setCampData] = useState([]);
     const [openModal, setOpenModal] = useState(false);
+    const [rating, setRating] = useState(0);
+    const [campId, setCampId] = useState("");
+    const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+    const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+    const currentDateUTC = moment.utc();
 
 
+    const handleRating = (value) => {
+        setRating(value);
+        // You can perform additional actions here with the 'value' selected
+    };
 
     function onCloseModal() {
         setOpenModal(false);
@@ -43,11 +54,49 @@ const Testimonials = () => {
 
             })
     }, [user?.email, axiosSecure])
+    const { register, handleSubmit, reset } = useForm();
+
+
+    const onSubmit = async (data) => {
 
 
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+        const formData = new FormData();
+        formData.append('image', data.image[0])
+        const reviewData = {
+
+            feedback: data.feedback,
+            testimonial: data.testimonial,
+            rating: rating,
+            campId: campId,
+            name: user?.displayName,
+            email: user?.email,
+            date: currentDateUTC.format('YYYY-MM-DD HH:mm:ss')
+
+        }
+
+
+        fetch(image_hosting_api, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json()).then((res) => {
+
+                reviewData['image'] = res?.data?.display_url;
+                axiosSecure.post("/reviews", reviewData)
+                    .then(result => {
+                        console.log(result)
+
+                    })
+               
+
+            })
+
+            reset();
+            onCloseModal();
+
+
+
     }
 
 
@@ -115,7 +164,7 @@ const Testimonials = () => {
         { label: "Payment status", renderCell: () => <h1 className="text-sm font-bold text-center">Paid</h1> },
         { label: "Confirmation Status", renderCell: () => <h1 className="text-sm font-bold">Pending...</h1> },
         {
-            label: "Payment status", renderCell: () => <Button onClick={() => setOpenModal(true)} gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20">Review</Button>
+            label: "Payment status", renderCell: (item) => <Button onClick={() => { setCampId(item?.campData?._id); setOpenModal(true) }} gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20">Review</Button>
 
         },
 
@@ -156,72 +205,55 @@ const Testimonials = () => {
                 <h1 className="text-center font-bold mb-5 text-blue-700">Edit Profile</h1>
                 <Modal.Body>
                     <div className="">
-                        <form className="h-[400px]" onSubmit={handleSubmit}>
+                        <form className="h-[400px]" onSubmit={handleSubmit(onSubmit)}>
                             <div className="flex flex-col gap-4 p-6">
-                                <div className="flex gap-5">
-                                    <div className="relative h-11 mb-5">
-                                        <input type="name" name="name" defaultValue={user?.displayName}
-                                            className="peer h-full w-full rounded-md border border-blue-700 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
 
-                                        />
-                                        <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-pink-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-pink-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                                            Enter Your Name*
-                                        </label>
-                                    </div>
-                                    <div className="relative h-11 ">
-                                        <input type="email" name="email" readOnly defaultValue={user?.email}
-                                            className="peer h-full w-full rounded-md border border-blue-700 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-
-                                        />
-                                        <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-pink-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-pink-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                                            Enter Your Email*
-                                        </label>
-                                    </div>
-                                </div>
-                                <div className="flex gap-5 mb-5">
-                                    <div className="relative h-11  ">
-                                        <input type="phone" name="phone" 
-                                            className="peer h-full w-full rounded-md border border-blue-700 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-
-                                        />
-                                        <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-pink-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-pink-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                                            Your Phone Number*
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <select className="rounded-md border border-blue-700" required name="gender">
-                                            <option value="">Gender</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-
-
-                                        </select>
-
-
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label htmlFor="age">interests in Medical Areas:</label>
-                                    <textarea
-                                        id="age"
-                                        name="age"
-                                        rows={2} // Set the number of rows you want
-                                        cols={32} // Set the number of columns you want
-                                        placeholder="Enter your age"
+                                <div className="relative h-11 mb-5">
+                                    <input type="text" name="feedback" {...register('feedback', { required: false })}
+                                        className="peer h-full w-full rounded-md border border-blue-700 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
 
                                     />
+                                    <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-pink-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-pink-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                                        Share Your feedback
+                                    </label>
                                 </div>
-                                <div>
-                                    <label htmlFor="interest">interests in Medical Areas:</label>
-                                    <textarea
-                                        id="interest"
-                                        name="interest"
-                                        rows={2} // Set the number of rows you want
-                                        cols={32} // Set the number of columns you want
-                                        placeholder="Enter your interests in Medical Areas"
+                                <div className="relative h-11 ">
+                                    <input type="text" name="testimonial" {...register('testimonial', { required: false })}
+                                        className="peer h-full w-full rounded-md border border-blue-700 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
 
                                     />
+                                    <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-pink-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-pink-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                                        testimonial
+                                    </label>
+
+                                </div>
+
+                                <div className="form-control w-full my-6">
+                                    <input {...register('image', { required: false })} name="image" type="file" className="file-input w-full max-w-xs" />
+                                </div>
+                                <div className="flex items-center">
+                                    {[...Array(5)].map((_, index) => {
+                                        const ratingValue = index + 1;
+                                        return (
+                                            <label key={index} className="cursor-pointer">
+                                                <input
+                                                    type="radio"
+                                                    name="rating"
+                                                    value={ratingValue}
+                                                    onClick={() => handleRating(ratingValue)}
+                                                    className="hidden"
+                                                />
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    className={`w-6 h-6 fill-current ${ratingValue <= rating ? 'text-yellow-500' : 'text-gray-300'
+                                                        }`}
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path d="M12 2l2.24 7.44H22l-6.84 5.16 2.28 7.38L12 17.77l-5.44 4.21 2.28-7.38L2 9.44h7.76L12 2z" />
+                                                </svg>
+                                            </label>
+                                        );
+                                    })}
                                 </div>
 
 
