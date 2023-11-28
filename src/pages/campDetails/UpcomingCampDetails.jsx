@@ -92,6 +92,7 @@ const UpcomingCampDetails = () => {
             gender: formData.get('gender'),
             specialization: formData.get('specialization'),
             areaInterest: formData.get('areaInterest'),
+            status: "Pending"
         };
         console.log(interestedProfessionals)
 

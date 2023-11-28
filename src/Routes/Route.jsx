@@ -24,6 +24,8 @@ import ProfessionalProfile from "../pages/professionalsDashboard/ProfessionalPro
 import AddUpcomingCamps from "../pages/organiserDashboard/AddUpcomingCamps";
 import UpcomingCampDetails from "../pages/campDetails/UpcomingCampDetails";
 import ManageUpcomingCamps from "../pages/organiserDashboard/manageUpcomingCamps";
+import ReviewParticipants from "../pages/organiserDashboard/ReviewParticipants";
+import ReviewProfessionals from "../pages/organiserDashboard/ReviewProfessionals";
 
 
 
@@ -117,6 +119,14 @@ const router = createBrowserRouter([
         {
             path: "manageUpcomingCamps",
             element: <ManageUpcomingCamps/>
+        },
+        {
+            path: "reviewParticipants",
+            element: <ReviewParticipants/>
+        },
+        {
+            path: "reviewProfessionals",
+            element: <ReviewProfessionals/>
         },
  
     ]

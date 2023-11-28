@@ -7,16 +7,12 @@ import UseAuth from "../../hooks/UseAuth";
 import useAxiosSecureCalls from "../../hooks/AxiosSecureCalls";
 import SectionTitle from "../../Components/SectionTitle";
 import Swal from "sweetalert2";
-import { Link } from 'react-router-dom';
 
-const ManageUpcomingCamps = () => {
+const ReviewProfessionals = () => {
 
 
     const { user } = UseAuth();
     let [campData, setCampData] = useState([]);
-    const [id, setId] = useState("");
-    const [participants, setParticipants] = useState([]);
-    const [professionals, setProfessionals] = useState([]);
 
 
     let i = 0;
@@ -25,23 +21,11 @@ const ManageUpcomingCamps = () => {
 
 
     useEffect(() => {
-        axiosSecure.get(`/upcomingCamps`)
-            .then(data => {
-
-                setCampData(data.data)
-
-            })
-        axiosSecure.get(`/growingParticipants`)
-            .then(data => {
-
-                console.log(data.data)
-                setParticipants(data.data)
-
-            })
         axiosSecure.get(`/interestedProfessionals`)
             .then(data => {
+
                 console.log(data.data)
-                setProfessionals(data.data)
+                setCampData(data.data)
 
             })
     }, [axiosSecure])
@@ -84,8 +68,8 @@ const ManageUpcomingCamps = () => {
                         Swal.fire("Camp deleted from your camp list");
                         axiosSecure.get(`/camps/${user?.email}`)
                             .then(data => {
-                                console.log(data.data)
-                                setCampData(data.data)
+                                const datas = data.data.filter((cell,index)=>index != (data.data.length)-1)
+                                setCampData(datas)
 
                             })
 
@@ -135,7 +119,7 @@ const ManageUpcomingCamps = () => {
 
         nodes: campData?.filter((item) =>
 
-            item?.CampName?.toLowerCase().includes(search.toLowerCase())
+            item?.name?.toLowerCase().includes(search.toLowerCase())
         ),
     };
 
@@ -144,27 +128,13 @@ const ManageUpcomingCamps = () => {
     const COLUMNS = [
 
         { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold ">{item?.serialNumber}</h1> },
-        { label: "Camp name", renderCell: (item) => <h1 title={item?.CampName} className="text-sm font-bold">{item?.CampName}</h1> },
-        { label: "Camp Fees", renderCell: (item) => <h1 title={item?.CampFees} className="text-sm font-bold text-center">{item?.CampFees}</h1> },
-        { label: "Location", renderCell: (item) => <h1 title={item?.Venue} className="text-sm font-bold">{item?.Venue}</h1>, resize: true },
-        { label: "DateTime", renderCell: (item) => <h1 title={item?.ScheduledDateTime} className="text-sm font-bold">{item?.ScheduledDateTime}</h1> },
-        { label: "Specialized Services", renderCell: (item) => <h1 className="text-sm font-bold text-center" title={item?.SpecializedServices}>{item?.SpecializedServices}</h1> },
-        { label: "Venue", renderCell: (item) => <h1 className="text-sm font-bold text-center" title={item?.Venue}>{item?.Venue}</h1> },
-        { label: "Participant Count", renderCell: () => <h1 className="text-sm font-bold text-center">{participants?.length}</h1> },
-        { label: "Interested professionals", renderCell: () => <h1 className="text-sm font-bold text-center">{professionals.length}</h1> },
-
-        {
-            label: "Action", renderCell: (item) =>
-                <div>
-
-                   <Link to="/organizerDashboard/reviewParticipants"><Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20">Review Participants</Button></Link> 
-
-                   <Link to="/organizerDashboard/reviewProfessionals"><Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 mt-2 w-20" onClick={() => handleDelete(item)}>
-                        Review Professionals
-                    </Button></Link>
-                    <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20 mt-2">Publish</Button>
-                </div>
-        },
+        { label: "Name", renderCell: (item) => <h1  className="text-sm font-bold">{item?.name}</h1> },
+        { label: "Email", renderCell: (item) => <h1  className="text-sm font-bold text-center">{item?.email}</h1> },
+        { label: "Age", renderCell: (item) => <h1 className="text-sm font-bold">{item?.age}</h1> },
+        { label: "Phone", renderCell: (item) => <h1 className="text-sm font-bold">{item?.phone}</h1> },
+        { label: "Specialization", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.specialization}</h1> },
+        { label: "Area of Interests", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.areaInterest}</h1> },
+        { label: "Action", renderCell: () =>  <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-32 p-2">Accept Professional</Button> }
 
     ];
     return (
@@ -173,13 +143,13 @@ const ManageUpcomingCamps = () => {
 
         <div>
             <div className="flex justify-evenly mb-8">
-                <SectionTitle subheading="---Find all your camps here---" heading="Manage Camps"></SectionTitle>
+                <SectionTitle subheading="---Find all joined participants in the selected upcoming camp here---" heading="Review Participants"></SectionTitle>
 
             </div>
             <div className="max-w-6xl mx-auto md:p-10 px-1">
                 <div className="mb-14">
                     <label htmlFor="search" className="text-xl font-bold text-blue-900">
-                        Search by Camp-Name:&nbsp;
+                        Search by Participant-Name:&nbsp;
                         <input id="search" type="text" value={search} onChange={handleSearch} className="outline-2 outline-blue-700 border-solid border-blue-500 border-2" />
                     </label>
                 </div>
@@ -199,6 +169,4 @@ const ManageUpcomingCamps = () => {
     );
 };
 
-export default ManageUpcomingCamps;
-
-
+export default ReviewProfessionals;
