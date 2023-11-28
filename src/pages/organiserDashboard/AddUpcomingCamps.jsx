@@ -24,7 +24,6 @@ const AddUpcomingCamps = () => {
             Venue: data.venue,
             Location: data.location,
             SpecializedServices: data.services,
-            HealthcareProfessionals: data.professionals,
             TargetAudience: data.audience,
             Description: data.description,
             email: user?.email
@@ -124,12 +123,7 @@ const AddUpcomingCamps = () => {
                             </div>
                             <div className="flex justify-between gap-5">
 
-                                <div className="w-full">
-                                    <div className="mb-2 block">
-                                        <Label htmlFor="professionals" value="Healthcare professionals" />
-                                    </div>
-                                    <TextInput {...register('professionals', { required: true })} id="professionals" name="professionals" type="text" required />
-                                </div>
+    
                                 <div>
                                     <div className="mb-2">
                                         <Label htmlFor="audience" value="Target Audience" />

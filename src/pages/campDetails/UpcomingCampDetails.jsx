@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useAxiosSecure from "../../hooks/AxiosSecure";
-import "./details.css"
+import "./details.css";
 import { Button } from "flowbite-react";
 import SectionTitle from "../../Components/SectionTitle";
 import banner from "../../assets/banner2.gif"

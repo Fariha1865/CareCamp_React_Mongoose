@@ -51,6 +51,13 @@ const OrganiserDashboard = () => {
                             Add Upcoming Camps
                         </NavLink>
                     </li>
+                    <li className="mt-5 mb-5 flex gap-2 items-center">
+                        <FaBook></FaBook>
+                        <NavLink to="/organizerDashboard/manageUpcomingCamps">
+
+                            Manage Upcoming Camps
+                        </NavLink>
+                    </li>
 
 
                     <hr className="border-solid border-2 border-blue-400"></hr>
