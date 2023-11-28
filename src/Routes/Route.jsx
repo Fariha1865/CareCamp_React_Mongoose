@@ -19,6 +19,8 @@ import OrganiserProfile from "../pages/organiserDashboard/OrganiserProfile";
 import AddCamp from "../pages/organiserDashboard/AddCamp";
 import ManageCamps from "../pages/organiserDashboard/ManageCamps";
 import ManageRegisteredCamps from "../pages/organiserDashboard/ManageRegisteredCamps";
+import ProffesionalsDashboard from "../layout/ProffesionalsDashboard";
+import ProfessionalProfile from "../pages/professionalsDashboard/ProfessionalProfile";
 
 
 
@@ -101,6 +103,20 @@ const router = createBrowserRouter([
             path: "manageRegisteredCamp",
             element: <ManageRegisteredCamps/>
         },
+ 
+    ]
+  },
+  {
+    path: "/professionalsDashboard",
+    element: <ProffesionalsDashboard/>,
+    children: [
+
+        {
+            path: "professional",
+            element: <ProfessionalProfile/>
+        },
+ 
+        
  
     ]
   },

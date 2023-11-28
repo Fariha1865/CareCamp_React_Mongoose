@@ -10,7 +10,6 @@ import UseAuth from "../../hooks/UseAuth";
 import useAxiosSecureCalls from "../../hooks/AxiosSecureCalls";
 import { Button } from "flowbite-react";
 import SectionTitle from "../../Components/SectionTitle";
-import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const ManageRegisteredCamps = () => {
@@ -61,7 +60,7 @@ const ManageRegisteredCamps = () => {
                 axiosSecure.patch(`/confirmRegistration/${id}`)
                 .then(res=>{
                     console.log(res)
-                    axiosSecure.get(`/registeredCamps`)
+                    axiosSecure.get(`/registeredCamps/${user?.email}`)
                     .then(data => {
                         console.log(data.data)
                         setCampData(data.data)

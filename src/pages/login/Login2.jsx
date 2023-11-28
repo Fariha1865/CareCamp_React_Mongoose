@@ -77,6 +77,10 @@ const Login2 = () => {
                       
                             return navigate("/organizerDashboard/organizer");
                         }
+                        if (res?.data[0]?.role === "Healthcare Professional") {
+                      
+                            return navigate("/professionalsDashboard/professional");
+                        }
 
                         else {
                             setTimeout(function () {

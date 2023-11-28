@@ -47,14 +47,17 @@ const NavigationBar = () => {
             {
                 userRole === "Participant" ? 
 
-                <NavLink to="participantDashboard/participant">Dashboard</NavLink>
+                <NavLink to="participantDashboard/participant">PDashboard</NavLink>
 
                 :
                 userRole === "Organizer" ? 
 
                 <NavLink to="organizerDashboard/organizer">ODashboard</NavLink>
                 :
-                <NavLink to="healthProfDashboard/healthProf">HDashboard</NavLink>
+                userRole === "Healthcare Professional" ? 
+                <NavLink to="professionalsDashboard/professional">HDashboard</NavLink>
+                :
+                <NavLink to="adminDashboard/admin">Dashboard</NavLink>
             }
 
         </div>

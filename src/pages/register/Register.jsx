@@ -62,6 +62,10 @@ const Register = () => {
 
                     return navigate("/organizerDashboard/organizer");
                 }
+                if (data?.UserRole === "Healthcare Professional") {
+                      
+                    return navigate("/professionalsDashboard/professional");
+                }
                 else {
                     navigate("/");
                 }
