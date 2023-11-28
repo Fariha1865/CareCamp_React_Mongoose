@@ -1,4 +1,4 @@
-import { FaBook, FaEnvelope, FaHome, FaList, FaUtensils } from "react-icons/fa";
+import { FaEnvelope, FaHome, } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 
 

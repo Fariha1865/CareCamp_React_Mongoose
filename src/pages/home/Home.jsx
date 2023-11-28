@@ -7,6 +7,7 @@ import Category from "./Category";
 import { useInView } from 'react-intersection-observer';
 import PopularCamps from "./popularCamps/PopularCamps";
 import Testimonials from "./Testimonials";
+import UpcomingCamps from "./upcomingCamps/UpcomingCamps";
 
 
 
@@ -16,7 +17,7 @@ import Testimonials from "./Testimonials";
 
 const Home = () => {
     const { ref, inView } = useInView({
-     
+
         threshold: 0.25,
     });
 
@@ -29,13 +30,13 @@ const Home = () => {
             <Carousel></Carousel>
             <Category></Category>
             <PopularCamps></PopularCamps>
+            <UpcomingCamps></UpcomingCamps>
             <Testimonials></Testimonials>
-          
-      
+
             {/* <MenuItems></MenuItems>
             <CheckMenu></CheckMenu>
             <Testimonials></Testimonials> */}
-{/* 
+            {/* 
             <div className="">
                 <div className="flex items-center justify-center relative">
                     <div
