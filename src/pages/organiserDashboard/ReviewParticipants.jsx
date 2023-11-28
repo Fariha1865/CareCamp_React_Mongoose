@@ -30,18 +30,6 @@ const ReviewParticipants = () => {
             })
     }, [axiosSecure])
 
-    // const fetchDataFromMongoDB = (id) => {
-
-    //     console.log(id)
-    //     axiosSecure.get(`/camp/${id}`)
-    //         .then(data => {
-
-    //             //  console.log(data)
-    //             setUpdateCamp(data.data[0])
-
-    //         })
-
-    // }
     if (campData?.length > 0) {
         campData = campData?.map((item) => ({
             ...item,
@@ -51,27 +39,47 @@ const ReviewParticipants = () => {
         // default
     }
 
-    const handleDelete = (data) => {
+    const handleAccept = (item) => {
         Swal.fire({
             title: "Are you sure?",
 
             showCancelButton: true,
-            confirmButtonText: "Delete from registered list",
+            confirmButtonText: "Accept this participant",
 
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
 
-                axiosSecure.delete(`/camps/${data?._id}`)
+                axiosSecure.delete(`deleteGrowingParticipants/${item?._id}`)
+                .then(res=>{
+                    console.log(res)
+                })
+
+                const datas = {
+                    campData: item?.campData,
+                    name: item?.name,
+                    email: item?.email,
+                    age: item?.age,
+                    phone: item?.phone,
+                    gender: item?.gender,
+                    special: item?.special,
+                    emergency: item?.emergency,
+                    payment:"Unpaid",
+                    status: "Pending"
+                       
+                }
+
+                axiosSecure.post(`/joinedParticipants`,datas)
                     .then(data => {
                         console.log(data)
-                        Swal.fire("Camp deleted from your camp list");
-                        axiosSecure.get(`/camps/${user?.email}`)
-                            .then(data => {
-                                const datas = data.data.filter((cell,index)=>index != (data.data.length)-1)
-                                setCampData(datas)
-
-                            })
+                        Swal.fire("Participant added to registered camp list");
+                        axiosSecure.get(`/growingParticipants`)
+                        .then(data => {
+            
+                            console.log(data.data)
+                            setCampData(data.data)
+            
+                        })
 
                     })
 
@@ -134,12 +142,10 @@ const ReviewParticipants = () => {
         { label: "Phone", renderCell: (item) => <h1 className="text-sm font-bold">{item?.phone}</h1> },
         { label: "Address", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.address}</h1> },
         { label: "Health Information", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.special}</h1> },
-        { label: "Action", renderCell: () =>  <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-32 p-2">Accept Participant</Button> }
+        { label: "Action", renderCell: (item) =>  <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-32 p-2" onClick={()=>handleAccept(item)}>Accept Participant</Button> }
 
     ];
     return (
-
-
 
         <div>
             <div className="flex justify-evenly mb-8">
