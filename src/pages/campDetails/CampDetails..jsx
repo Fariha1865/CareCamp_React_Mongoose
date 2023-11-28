@@ -9,6 +9,7 @@ import UserData from "../../hooks/UserData";
 import {Modal} from 'flowbite-react';
 import useAxiosSecureCalls from "../../hooks/AxiosSecureCalls";
 import Swal from "sweetalert2";
+import UseAuth from "../../hooks/UseAuth";
 
 
 
@@ -27,6 +28,7 @@ const CampDetails = () => {
     const [camp, setCamp] = useState([]);
     const [userData] = UserData();
     const axiosSecureCalls = useAxiosSecureCalls();
+    const {user} = UseAuth();
 
 
     const url = `/details/${id}`
@@ -120,6 +122,7 @@ const CampDetails = () => {
                                         {
                                             userData[0]?.role === "Participant" ?
                                                 <Button onClick={() => setOpenModal(true)} gradientDuoTone="greenToBlue" className="mt-4">Join This Camp</Button>
+                                                
                                                 :
                                                 ""
                                         }
@@ -169,7 +172,7 @@ const CampDetails = () => {
                                         </label>
                                     </div>
                                     <div className="relative h-11  ">
-                                        <input type="email" name="email" required
+                                        <input type="email" name="email" required defaultValue={user?.email} readOnly
                                             className="peer h-full w-full rounded-md border border-blue-700 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
 
                                         />
