@@ -30,18 +30,7 @@ const ReviewProfessionals = () => {
             })
     }, [axiosSecure])
 
-    // const fetchDataFromMongoDB = (id) => {
 
-    //     console.log(id)
-    //     axiosSecure.get(`/camp/${id}`)
-    //         .then(data => {
-
-    //             //  console.log(data)
-    //             setUpdateCamp(data.data[0])
-
-    //         })
-
-    // }
     if (campData?.length > 0) {
         campData = campData?.map((item) => ({
             ...item,
@@ -51,25 +40,26 @@ const ReviewProfessionals = () => {
         // default
     }
 
-    const handleDelete = (data) => {
+    const acceptProfessionals = (id) => {
         Swal.fire({
             title: "Are you sure?",
 
             showCancelButton: true,
-            confirmButtonText: "Delete from registered list",
+            confirmButtonText: "Accept this professional for this camp",
 
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
 
-                axiosSecure.delete(`/camps/${data?._id}`)
+                axiosSecure.patch(`/acceptProfessional/${id}`)
                     .then(data => {
                         console.log(data)
-                        Swal.fire("Camp deleted from your camp list");
-                        axiosSecure.get(`/camps/${user?.email}`)
+                        Swal.fire("The professional is successfully accepted for this camp");
+                        axiosSecure.get(`/interestedProfessionals`)
                             .then(data => {
-                                const datas = data.data.filter((cell,index)=>index != (data.data.length)-1)
-                                setCampData(datas)
+
+                                console.log(data.data)
+                                setCampData(data.data)
 
                             })
 
@@ -128,13 +118,14 @@ const ReviewProfessionals = () => {
     const COLUMNS = [
 
         { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold ">{item?.serialNumber}</h1> },
-        { label: "Name", renderCell: (item) => <h1  className="text-sm font-bold">{item?.name}</h1> },
-        { label: "Email", renderCell: (item) => <h1  className="text-sm font-bold text-center">{item?.email}</h1> },
+        { label: "Name", renderCell: (item) => <h1 className="text-sm font-bold">{item?.name}</h1> },
+        { label: "Email", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.email}</h1> },
         { label: "Age", renderCell: (item) => <h1 className="text-sm font-bold">{item?.age}</h1> },
         { label: "Phone", renderCell: (item) => <h1 className="text-sm font-bold">{item?.phone}</h1> },
         { label: "Specialization", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.specialization}</h1> },
         { label: "Area of Interests", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.areaInterest}</h1> },
-        { label: "Action", renderCell: () =>  <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-32 p-2">Accept Professional</Button> }
+        { label: "Status", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.status}</h1> },
+        { label: "Action", renderCell: (item) => <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-32 p-2" onClick={() => acceptProfessionals(item?._id)}>Accept Professional</Button> }
 
     ];
     return (

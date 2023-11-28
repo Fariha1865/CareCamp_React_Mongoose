@@ -67,36 +67,6 @@ const ManageUpcomingCamps = () => {
         // default
     }
 
-    const handleDelete = (data) => {
-        Swal.fire({
-            title: "Are you sure?",
-
-            showCancelButton: true,
-            confirmButtonText: "Delete from registered list",
-
-        }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-
-                axiosSecure.delete(`/camps/${data?._id}`)
-                    .then(data => {
-                        console.log(data)
-                        Swal.fire("Camp deleted from your camp list");
-                        axiosSecure.get(`/camps/${user?.email}`)
-                            .then(data => {
-                                console.log(data.data)
-                                setCampData(data.data)
-
-                            })
-
-                    })
-
-            } else if (result.isDenied) {
-                Swal.fire("Changes are not saved", "", "info");
-            }
-        });
-    }
-
 
 
     const theme = useTheme([
@@ -159,7 +129,7 @@ const ManageUpcomingCamps = () => {
 
                    <Link to="/organizerDashboard/reviewParticipants"><Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20">Review Participants</Button></Link> 
 
-                   <Link to="/organizerDashboard/reviewProfessionals"><Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 mt-2 w-20" onClick={() => handleDelete(item)}>
+                   <Link to="/organizerDashboard/reviewProfessionals"><Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 mt-2 w-20">
                         Review Professionals
                     </Button></Link>
                     <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20 mt-2">Publish</Button>
