@@ -26,7 +26,7 @@ const ManageRegisteredCamps = () => {
 
 
     useEffect(() => {
-        axiosSecure.get(`/registeredCamps`)
+        axiosSecure.get(`/registeredCamps/${user?.email}`)
             .then(data => {
                 console.log(data.data)
                 setCampData(data.data)
