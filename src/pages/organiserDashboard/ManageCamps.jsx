@@ -13,7 +13,7 @@ const ManageCamps = () => {
 
 
     const { user } = UseAuth();
-    const { register, reset, handleSubmit, setValue, formState: { errors } } = useForm();
+    const { register, reset, formState: { errors } } = useForm();
     let [campData, setCampData] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [id, setId] = useState("");
@@ -206,7 +206,7 @@ const ManageCamps = () => {
 
         <div>
             <div className="flex justify-evenly mb-8">
-                <SectionTitle subheading="---Find all your registered camps here---" heading="Registered Camps"></SectionTitle>
+                <SectionTitle subheading="---Find all your camps here---" heading="Manage Camps"></SectionTitle>
 
             </div>
             <div className="max-w-6xl mx-auto md:p-10 px-1">

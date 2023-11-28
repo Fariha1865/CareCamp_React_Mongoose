@@ -39,7 +39,7 @@ const OrganiserDashboard = () => {
                     </li>
                     <li className="mt-5 mb-5 flex gap-2 items-center">
                         <FaBook></FaBook>
-                        <NavLink to="/organizerDashboard/manageRegisteredCamps">
+                        <NavLink to="/organizerDashboard/manageRegisteredCamp">
 
                             Manage Registered Camps
                         </NavLink>

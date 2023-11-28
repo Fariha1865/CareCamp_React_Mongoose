@@ -59,7 +59,8 @@ const CampDetails = () => {
             address: formData.get('address'),
             special: formData.get('special'),
             emergency: formData.get('emergency'),
-            payment: "Unpaid"
+            payment: "Unpaid",
+            status:"Pending"
         };
         console.log(registeredParticipant)
 

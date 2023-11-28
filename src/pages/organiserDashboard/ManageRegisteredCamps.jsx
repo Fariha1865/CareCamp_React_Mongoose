@@ -13,7 +13,7 @@ import SectionTitle from "../../Components/SectionTitle";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const RegisteredCamps = () => {
+const ManageRegisteredCamps = () => {
 
 
     const { user } = UseAuth();
@@ -26,7 +26,7 @@ const RegisteredCamps = () => {
 
 
     useEffect(() => {
-        axiosSecure.get(`/registeredUser/${user?.email}`)
+        axiosSecure.get(`/registeredCamps`)
             .then(data => {
                 console.log(data.data)
                 setCampData(data.data)
@@ -48,30 +48,53 @@ const RegisteredCamps = () => {
     }
     console.log(campData)
 
-    const handleDelete = (data) => {
+    const handleConfirmation = (id) => {
         Swal.fire({
             title: "Are you sure?",
 
             showCancelButton: true,
-            confirmButtonText: "Delete from registered list",
+            confirmButtonText: "Confirm registration of this participant",
 
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-
-                axiosSecure.delete(`/joinedParticipants/${data?._id}`)
+                axiosSecure.patch(`/confirmRegistration/${id}`)
+                .then(res=>{
+                    console.log(res)
+                    axiosSecure.get(`/registeredCamps`)
                     .then(data => {
-                        console.log(data)
-                        Swal.fire("Camp deleted from your registered list");
-                        axiosSecure.get(`/registeredUser/${user?.email}`)
-                        .then(data => {
-                            console.log(data.data)
-                            setCampData(data.data)
-            
-                        })
-                       
+                        console.log(data.data)
+                        setCampData(data.data)
+        
                     })
+                })
+ 
+            } else if (result.isDenied) {
+                Swal.fire("Changes are not saved", "", "info");
+            }
+        });
+    }
+    const handleCancel = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
 
+            showCancelButton: true,
+            confirmButtonText: "Cancel registration of this participant",
+
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                axiosSecure.patch(`/cancelRegistration/${id}`)
+                .then(res=>{
+                    console.log(res)
+                    axiosSecure.get(`/registeredCamps`)
+                    .then(data => {
+                        console.log(data.data)
+                        setCampData(data.data)
+        
+                    })
+                })
+ 
             } else if (result.isDenied) {
                 Swal.fire("Changes are not saved", "", "info");
             }
@@ -85,6 +108,8 @@ const RegisteredCamps = () => {
         {
             HeaderRow: `
             background-color: #eaf5fd;
+            font-size: 10px;
+            font-weight: 900;
             
           `,
             Row: `
@@ -126,19 +151,21 @@ const RegisteredCamps = () => {
 
         { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold ">{item?.serialNumber}</h1> },
         { label: "Camp name", renderCell: (item) => <h1 title={item?.campData?.CampName} className="text-sm font-bold">{item?.campData?.CampName}</h1> },
+        { label: "Participant", renderCell: (item) => <h1 title={item?.campData?.CampFees} className="text-sm font-bold text-center">{item?.email}</h1> },
         { label: "Camp Fees", renderCell: (item) => <h1 title={item?.campData?.CampFees} className="text-sm font-bold text-center">{item?.campData?.CampFees}</h1> },
         { label: "Location", renderCell: (item) => <h1 title={item?.campData?.Venue} className="text-sm font-bold">{item?.campData?.Venue}</h1>, resize: true },
         { label: "DateTime", renderCell: (item) => <h1 title={item?.campData?.ScheduledDateTime} className="text-sm font-bold">{item?.campData?.ScheduledDateTime}</h1> },
         { label: "Payment status", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.payment}</h1> },
-        { label: "Confirmation Status", renderCell: (item) => <h1 className="text-sm font-bold">{item?.status}</h1> },
+        { label: "Confirmation Status", renderCell: (item) => 
+    
+            <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20" disabled={item?.payment != "Paid" || item?.status === "Cancelled"} onClick={()=>handleConfirmation(item?._id)}>{item?.status === "Pending" || item?.status === "Cancelled" ? "Pending" : "Confirmed"}</Button>
+
+        },
         {
             label: "Actions", renderCell: (item) =>
                 <div>
-                    <Link to={`/participantDashboard/payment/${item?.campData?._id}`}>
-                        <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20" disabled={item?.payment === "Paid"}>Pay</Button>
-                    </Link>
-                    <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 mt-2 w-20" disabled={item?.payment === "Paid"} onClick={()=>handleDelete(item)}>
-                        Cancel
+                    <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 mt-2 w-20" disabled={item?.payment != "Paid" || item?.status === "Confirmed"} onClick={()=>handleCancel(item?._id)}>
+                    {item?.status === "Pending" || item?.status === "Confirmed" ? "Cancel" : "Cancelled"}
                     </Button>
                 </div>
         },
@@ -174,4 +201,4 @@ const RegisteredCamps = () => {
     );
 };
 
-export default RegisteredCamps;
+export default ManageRegisteredCamps;
