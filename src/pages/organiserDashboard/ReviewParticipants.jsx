@@ -7,11 +7,13 @@ import UseAuth from "../../hooks/UseAuth";
 import useAxiosSecureCalls from "../../hooks/AxiosSecureCalls";
 import SectionTitle from "../../Components/SectionTitle";
 import Swal from "sweetalert2";
+import { useParams } from 'react-router-dom';
 
 const ReviewParticipants = () => {
 
 
     const { user } = UseAuth();
+    const { id } = useParams();
     let [campData, setCampData] = useState([]);
 
 
@@ -25,7 +27,8 @@ const ReviewParticipants = () => {
             .then(data => {
 
                 console.log(data.data)
-                setCampData(data.data)
+                const participants = data.data.filter(p => p.campData._id === id);
+                setCampData(participants)
 
             })
     }, [axiosSecure])
@@ -51,9 +54,9 @@ const ReviewParticipants = () => {
             if (result.isConfirmed) {
 
                 axiosSecure.delete(`deleteGrowingParticipants/${item?._id}`)
-                .then(res=>{
-                    console.log(res)
-                })
+                    .then(res => {
+                        console.log(res)
+                    })
 
                 const datas = {
                     campData: item?.campData,
@@ -64,22 +67,22 @@ const ReviewParticipants = () => {
                     gender: item?.gender,
                     special: item?.special,
                     emergency: item?.emergency,
-                    payment:"Unpaid",
+                    payment: "Unpaid",
                     status: "Pending"
-                       
+
                 }
 
-                axiosSecure.post(`/joinedParticipants`,datas)
+                axiosSecure.post(`/joinedParticipants`, datas)
                     .then(data => {
                         console.log(data)
                         Swal.fire("Participant added to registered camp list");
                         axiosSecure.get(`/growingParticipants`)
-                        .then(data => {
-            
-                            console.log(data.data)
-                            setCampData(data.data)
-            
-                        })
+                            .then(data => {
+
+                                const participants = data.data.filter(p => p.campData._id === id);
+                                setCampData(participants)
+
+                            })
 
                     })
 
@@ -136,13 +139,13 @@ const ReviewParticipants = () => {
     const COLUMNS = [
 
         { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold ">{item?.serialNumber}</h1> },
-        { label: "Name", renderCell: (item) => <h1  className="text-sm font-bold">{item?.name}</h1> },
-        { label: "Email", renderCell: (item) => <h1  className="text-sm font-bold text-center">{item?.email}</h1> },
+        { label: "Name", renderCell: (item) => <h1 className="text-sm font-bold">{item?.name}</h1> },
+        { label: "Email", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.email}</h1> },
         { label: "Age", renderCell: (item) => <h1 className="text-sm font-bold">{item?.age}</h1> },
         { label: "Phone", renderCell: (item) => <h1 className="text-sm font-bold">{item?.phone}</h1> },
         { label: "Address", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.address}</h1> },
         { label: "Health Information", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.special}</h1> },
-        { label: "Action", renderCell: (item) =>  <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-32 p-2" onClick={()=>handleAccept(item)}>Accept Participant</Button> }
+        { label: "Action", renderCell: (item) => <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-32 p-2" onClick={() => handleAccept(item)}>Accept Participant</Button> }
 
     ];
     return (

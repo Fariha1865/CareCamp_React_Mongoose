@@ -21,9 +21,10 @@ const PopularCamps = () => {
 
     // let [camps] = UseCampsData();
     useEffect(()=>{
-        axiosSecure.get('/camps')
+        axiosSecure.get('/popularCamps')
         .then(res=>{
            
+            console.log(res.data)
            setCamps(res?.data?.slice(0, 8))
             
         })

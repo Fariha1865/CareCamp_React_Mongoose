@@ -24,8 +24,9 @@ const ManageUpcomingCamps = () => {
     const axiosSecure = useAxiosSecureCalls();
 
 
+
     useEffect(() => {
-        axiosSecure.get(`/upcomingCamps`)
+        axiosSecure.get(`/upcomingCamps/${user?.email}`)
             .then(data => {
 
                 setCampData(data.data)
@@ -44,20 +45,51 @@ const ManageUpcomingCamps = () => {
                 setProfessionals(data.data)
 
             })
-    }, [axiosSecure])
+    }, [axiosSecure, user?.email])
 
-    // const fetchDataFromMongoDB = (id) => {
+    const addToPopular = (item) => {
 
-    //     console.log(id)
-    //     axiosSecure.get(`/camp/${id}`)
-    //         .then(data => {
+        const id = item._id;
+        item.type = "popular"
+        delete item._id;
+        console.log(item)
 
-    //             //  console.log(data)
-    //             setUpdateCamp(data.data[0])
+        Swal.fire({
+            title: "Are you sure?",
 
-    //         })
+            showCancelButton: true,
+            confirmButtonText: "Publish Camp",
 
-    // }
+        })
+            .then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    axiosSecure.post("/camps", item)
+                        .then(result => {
+                            Swal.fire("Camp added to popular camps list");
+                            console.log(result)
+                            axiosSecure.delete(`upcoming/${id}`)
+                                .then(res => {
+
+                                    console.log(res)
+                                    axiosSecure.get(`/upcomingCamps/${user?.email}`)
+                                        .then(data => {
+
+                                            setCampData(data.data)
+
+                                        })
+
+
+                                })
+
+
+                        })
+
+                }
+            });
+
+
+    }
     if (campData?.length > 0) {
         campData = campData?.map((item) => ({
             ...item,
@@ -120,19 +152,24 @@ const ManageUpcomingCamps = () => {
         { label: "DateTime", renderCell: (item) => <h1 title={item?.ScheduledDateTime} className="text-sm font-bold">{item?.ScheduledDateTime}</h1> },
         { label: "Specialized Services", renderCell: (item) => <h1 className="text-sm font-bold text-center" title={item?.SpecializedServices}>{item?.SpecializedServices}</h1> },
         { label: "Venue", renderCell: (item) => <h1 className="text-sm font-bold text-center" title={item?.Venue}>{item?.Venue}</h1> },
-        { label: "Participant Count", renderCell: () => <h1 className="text-sm font-bold text-center">{participants?.length}</h1> },
-        { label: "Interested professionals", renderCell: () => <h1 className="text-sm font-bold text-center">{professionals.length}</h1> },
+        { label: "Participant Count", renderCell: (item) => <h1 className="text-sm font-bold text-center">{(participants.filter(p => p.campData._id === item._id)).length}</h1> },
+        { label: "Interested professionals", renderCell: (item) => <h1 className="text-sm font-bold text-center">{(professionals.filter(p => p.campData._id === item._id)).length}</h1> },
 
         {
             label: "Action", renderCell: (item) =>
                 <div>
 
-                   <Link to="/organizerDashboard/reviewParticipants"><Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20">Review Participants</Button></Link> 
+                    <Link to={`/organizerDashboard/reviewParticipants/${item?._id}`}><Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20">Review Participants</Button></Link>
 
-                   <Link to="/organizerDashboard/reviewProfessionals"><Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 mt-2 w-20">
+                    <Link to={`/organizerDashboard/reviewProfessionals/${item?._id}`}><Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 mt-2 w-20">
                         Review Professionals
                     </Button></Link>
-                    <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20 mt-2">Publish</Button>
+                    <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20 mt-2"
+
+                        disabled={!((participants.filter(p => p.campData._id === item._id)).length == 0 && (professionals.filter(p => p.campData._id === item._id)).length == 0)}
+                        onClick={() => addToPopular(item)}
+
+                    >Publish</Button>
                 </div>
         },
 

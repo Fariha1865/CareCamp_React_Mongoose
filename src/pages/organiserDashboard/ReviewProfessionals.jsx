@@ -7,13 +7,14 @@ import UseAuth from "../../hooks/UseAuth";
 import useAxiosSecureCalls from "../../hooks/AxiosSecureCalls";
 import SectionTitle from "../../Components/SectionTitle";
 import Swal from "sweetalert2";
+import { useParams } from 'react-router-dom';
 
 const ReviewProfessionals = () => {
 
 
     const { user } = UseAuth();
     let [campData, setCampData] = useState([]);
-
+    const {id} = useParams();
 
     let i = 0;
 
@@ -24,11 +25,11 @@ const ReviewProfessionals = () => {
         axiosSecure.get(`/interestedProfessionals`)
             .then(data => {
 
-                console.log(data.data)
-                setCampData(data.data)
+                const professionals = data?.data?.filter(p => p.campData._id === id);
+                setCampData(professionals)
 
             })
-    }, [axiosSecure])
+    }, [axiosSecure,id])
 
 
     if (campData?.length > 0) {
@@ -40,7 +41,7 @@ const ReviewProfessionals = () => {
         // default
     }
 
-    const acceptProfessionals = (id) => {
+    const acceptProfessionals = (profid) => {
         Swal.fire({
             title: "Are you sure?",
 
@@ -51,15 +52,15 @@ const ReviewProfessionals = () => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
 
-                axiosSecure.patch(`/acceptProfessional/${id}`)
+                axiosSecure.patch(`/acceptProfessional/${profid}`)
                     .then(data => {
                         console.log(data)
                         Swal.fire("The professional is successfully accepted for this camp");
                         axiosSecure.get(`/interestedProfessionals`)
                             .then(data => {
 
-                                console.log(data.data)
-                                setCampData(data.data)
+                                const professionals = data?.data?.filter(p => p.campData._id === id);
+                                setCampData(professionals)
 
                             })
 
@@ -125,7 +126,7 @@ const ReviewProfessionals = () => {
         { label: "Specialization", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.specialization}</h1> },
         { label: "Area of Interests", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.areaInterest}</h1> },
         { label: "Status", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.status}</h1> },
-        { label: "Action", renderCell: (item) => <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-32 p-2" onClick={() => acceptProfessionals(item?._id)}>Accept Professional</Button> }
+        { label: "Action", renderCell: (item) => <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-32 p-2" disabled={item?.status==="Accepted"} onClick={() => acceptProfessionals(item?._id)}>Accept Professional</Button> }
 
     ];
     return (

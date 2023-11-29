@@ -121,11 +121,11 @@ const router = createBrowserRouter([
             element: <ManageUpcomingCamps/>
         },
         {
-            path: "reviewParticipants",
+            path: "reviewParticipants/:id",
             element: <ReviewParticipants/>
         },
         {
-            path: "reviewProfessionals",
+            path: "reviewProfessionals/:id",
             element: <ReviewProfessionals/>
         },
  
