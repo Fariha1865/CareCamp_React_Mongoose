@@ -51,6 +51,8 @@ const ManageUpcomingCamps = () => {
 
         const id = item._id;
         item.type = "popular"
+       const prof = professionals.filter(p => p.campData._id === item._id);
+        item.HealthcareProfessionals = prof[0]?.name+","+prof[1]?.name
         delete item._id;
         console.log(item)
 
@@ -187,7 +189,7 @@ const ManageUpcomingCamps = () => {
                         </Button></Link>
                         <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-36 mt-2"
 
-                            disabled={!((participants.filter(p => p.campData._id === item._id)).length >= 5 && (professionals.filter(p => p.campData._id === item._id)).length >= 2)}
+                            disabled={!((participants.filter(p => p.campData._id === item._id)).length ==0 && (professionals.filter(p => p.campData._id === item._id)).length >=2)}
                             onClick={() => addToPopular(item)}
 
                         >Publish</Button>

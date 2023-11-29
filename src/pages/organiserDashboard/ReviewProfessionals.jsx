@@ -153,7 +153,7 @@ const ReviewProfessionals = () => {
 
         <div>
             <div className="flex justify-evenly mb-8">
-                <SectionTitle subheading="---Find all joined participants in the selected upcoming camp here---" heading="Review Participants"></SectionTitle>
+                <SectionTitle subheading="---Find all joined participants in the selected upcoming camp here---" heading="Review Professionals"></SectionTitle>
 
             </div>
             <div className="max-w-6xl mx-auto md:p-10 px-1">

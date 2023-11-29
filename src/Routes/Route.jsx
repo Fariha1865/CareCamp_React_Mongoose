@@ -3,7 +3,6 @@ import {
 } from "react-router-dom";
 import Root from "../layout/Root";
 import Home from "../pages/Home/Home";
-import PrivateRoute from "./Privateroute";
 import Login2 from "../pages/login/Login2";
 import Register from "../pages/register/Register";
 import CampDetails from "../pages/campDetails/CampDetails.";
@@ -27,6 +26,9 @@ import ManageUpcomingCamps from "../pages/organiserDashboard/manageUpcomingCamps
 import ReviewParticipants from "../pages/organiserDashboard/ReviewParticipants";
 import ReviewProfessionals from "../pages/organiserDashboard/ReviewProfessionals";
 import AcceptedCamps from "../pages/professionalsDashboard/AcceptedCamps";
+import Contact from "../pages/contact/Contact";
+import PrivateRoute from "./PrivateRoute";
+import DummyDash from "../pages/DummyDash";
 
 
 
@@ -43,7 +45,7 @@ const router = createBrowserRouter([
         },
         {
             path: "/allCamps",
-            element: <AvailableCamps/>
+            element: <PrivateRoute><AvailableCamps/></PrivateRoute>
         },
         {
             path: "/login",
@@ -54,14 +56,24 @@ const router = createBrowserRouter([
             element: <Register></Register>
         },
         {
+            path: "/dash",
+            element: <PrivateRoute><DummyDash/></PrivateRoute>
+        },
+    
+        {
             path: "/details/:id",
-            element: <CampDetails/>
+            element: <PrivateRoute><CampDetails/></PrivateRoute>
         },
         {
             path: "/upcomingDetails/:id",
-            element: <UpcomingCampDetails/>
+            element: <PrivateRoute><UpcomingCampDetails/></PrivateRoute>
+        },
+        {
+            path: "/contact",
+            element: <Contact/>
         },
     ]
+        
   },
   {
     path: "/participantDashboard",

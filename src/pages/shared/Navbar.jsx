@@ -43,21 +43,21 @@ const NavigationBar = () => {
         <div className="flex flex-col lg:flex-row gap-5 lg:gap-10 items-center text-base font-extrabold">
             <NavLink to="/">Home</NavLink>
             <NavLink to="/allCamps">Available Camps</NavLink>
-            <NavLink to="/order/pizza">Our Shop</NavLink>
+            <NavLink to="/contact">Contact</NavLink>
             {
                 userRole === "Participant" ? 
 
-                <NavLink to="participantDashboard/participant">PDashboard</NavLink>
+                <NavLink to="participantDashboard/participant">Dashboard</NavLink>
 
                 :
                 userRole === "Organizer" ? 
 
-                <NavLink to="organizerDashboard/organizer">ODashboard</NavLink>
+                <NavLink to="organizerDashboard/organizer">Dashboard</NavLink>
                 :
                 userRole === "Healthcare Professional" ? 
-                <NavLink to="professionalsDashboard/professional">HDashboard</NavLink>
+                <NavLink to="professionalsDashboard/professional">Dashboard</NavLink>
                 :
-                <NavLink to="adminDashboard/admin">Dashboard</NavLink>
+                <NavLink to="/dash">Dashboard</NavLink>
             }
 
         </div>

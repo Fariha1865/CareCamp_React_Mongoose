@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import UseCampsData from "../../hooks/UseCampsData";
 import SectionTitle from "../../Components/SectionTitle";
 import AvailableCamp from "./AvailableCamp";
+import { Helmet } from 'react-helmet';
 
 
 const AvailableCamps = () => {
@@ -17,12 +18,12 @@ const AvailableCamps = () => {
     let [camps] = UseCampsData();
 
     const [allCamps, setAllCamps] = useState([]);
-    const [sortAscending, setSortAscending] = useState(true); 
+    const [sortAscending, setSortAscending] = useState(true);
 
-    useEffect(()=>{
-   
-         setAllCamps([...camps])
-    },[camps])
+    useEffect(() => {
+
+        setAllCamps([...camps])
+    }, [camps])
 
     const handleSort = () => {
         const sorted = [...allCamps].sort((campA, campB) => {
@@ -38,6 +39,9 @@ const AvailableCamps = () => {
         <div className='pt-20'>
 
 
+            <Helmet>
+                <title>CareCamp || All Available Camps</title>
+            </Helmet>
             <SectionTitle subheading="---Explore All the medical camps offering diverse services---" heading="Available Camps"></SectionTitle>
 
             <div className="flex justify-center pt-5" >
