@@ -25,6 +25,12 @@ const ProffesionalsDashboard = () => {
 
                             HealthCare Professionals Profile</NavLink>
                     </li>
+                    <li className="flex gap-2 items-center my-5">
+                        <FaHome></FaHome>
+                        <NavLink to="/professionalsDashboard/accepted">
+
+                            Accepted Camps</NavLink>
+                    </li>
                     
 
 
