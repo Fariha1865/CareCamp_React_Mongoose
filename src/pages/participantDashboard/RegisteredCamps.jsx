@@ -100,6 +100,24 @@ const RegisteredCamps = () => {
               font-weight: 600;
             }
           `,
+          Table: `
+          width: 2000px; 
+     
+          overflow-x: auto; 
+        `,
+        HeaderCell: `
+        
+          max-width: 2000px; 
+          word-wrap: break-word; 
+          white-space: normal; 
+          text-align: center
+        `,
+        Cell: `
+          
+          max-width: 2000px; 
+          word-wrap: break-word;
+          white-space: normal; 
+        `,
 
 
         },
@@ -124,16 +142,17 @@ const RegisteredCamps = () => {
 
     const COLUMNS = [
 
-        { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold ">{item?.serialNumber}</h1> },
-        { label: "Camp name", renderCell: (item) => <h1 title={item?.campData?.CampName} className="text-sm font-bold">{item?.campData?.CampName}</h1> },
+        { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold text-center">{item?.serialNumber}</h1> },
+        { label: "Camp name", renderCell: (item) => <h1 title={item?.campData?.CampName} className="text-sm font-bold text-center">{item?.campData?.CampName}</h1> },
         { label: "Camp Fees", renderCell: (item) => <h1 title={item?.campData?.CampFees} className="text-sm font-bold text-center">{item?.campData?.CampFees}</h1> },
-        { label: "Location", renderCell: (item) => <h1 title={item?.campData?.Venue} className="text-sm font-bold">{item?.campData?.Venue}</h1>, resize: true },
-        { label: "DateTime", renderCell: (item) => <h1 title={item?.campData?.ScheduledDateTime} className="text-sm font-bold">{item?.campData?.ScheduledDateTime}</h1> },
+        { label: "Location", renderCell: (item) => <h1 title={item?.campData?.Venue} className="text-sm font-bold text-center">{item?.campData?.Venue}</h1>, resize: true },
+        { label: "DateTime", renderCell: (item) => <h1 title={item?.campData?.ScheduledDateTime} className="text-sm font-bold text-center">{item?.campData?.ScheduledDateTime}</h1> },
         { label: "Payment status", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.payment}</h1> },
-        { label: "Confirmation Status", renderCell: (item) => <h1 className="text-sm font-bold">{item?.status}</h1> },
+        { label: "Confirmation Status", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.status}</h1> },
         {
             label: "Actions", renderCell: (item) =>
-                <div>
+               <div className="flex justify-center">
+                 <div>
                     <Link to={`/participantDashboard/payment/${item?.campData?._id}`}>
                         <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20" disabled={item?.payment === "Paid"}>Pay</Button>
                     </Link>
@@ -141,6 +160,7 @@ const RegisteredCamps = () => {
                         Cancel
                     </Button>
                 </div>
+               </div>
         },
 
     ];

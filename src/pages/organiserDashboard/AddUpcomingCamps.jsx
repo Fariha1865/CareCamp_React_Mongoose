@@ -55,12 +55,12 @@ const AddUpcomingCamps = () => {
         <div >
             <div className="mb-5 pt-5 text-center">
 
-                <h1 className="text-4xl font-bold font-mono border-y-4 max-w-xl mx-auto text-blue-800">Add a New Health Camp</h1>
+                <h1 className="text-4xl font-bold font-mono border-y-4 max-w-xl mx-auto text-blue-800">Add New Upcoming Health Camp</h1>
             </div>
             <div className="hero ">
 
-                <div className="hero-content flex lg:flex-row-reverse shadow-2xl shadow-gray-700" >
-                    <div className="text-center lg:text-left w-1/2 p-14">
+                <div className="hero-content flex flex-col lg:flex-row-reverse shadow-2xl shadow-gray-700" >
+                    <div className="text-center lg:text-left lg:w-1/2 w-full p-14">
                         <img src="https://i.ibb.co/rfh6BDw/camp.jpg" alt="" />
                     </div>
 
@@ -121,7 +121,7 @@ const AddUpcomingCamps = () => {
                                 </div>
 
                             </div>
-                            <div className="flex justify-between gap-5">
+                            <div >
 
     
                                 <div>

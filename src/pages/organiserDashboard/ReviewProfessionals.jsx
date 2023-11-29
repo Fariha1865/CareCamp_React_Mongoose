@@ -94,6 +94,24 @@ const ReviewProfessionals = () => {
               font-weight: 600;
             }
           `,
+          Table: `
+          width: 2000px; 
+     
+          overflow-x: auto; 
+        `,
+        HeaderCell: `
+        
+          max-width: 2000px; 
+          word-wrap: break-word; 
+          white-space: normal; 
+          text-align:center
+        `,
+        Cell: `
+          
+          max-width: 2000px; 
+          word-wrap: break-word;
+          white-space: normal; 
+        `,
 
 
         },
@@ -118,15 +136,15 @@ const ReviewProfessionals = () => {
 
     const COLUMNS = [
 
-        { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold ">{item?.serialNumber}</h1> },
-        { label: "Name", renderCell: (item) => <h1 className="text-sm font-bold">{item?.name}</h1> },
+        { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold text-center">{item?.serialNumber}</h1> },
+        { label: "Name", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.name}</h1> },
         { label: "Email", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.email}</h1> },
-        { label: "Age", renderCell: (item) => <h1 className="text-sm font-bold">{item?.age}</h1> },
-        { label: "Phone", renderCell: (item) => <h1 className="text-sm font-bold">{item?.phone}</h1> },
+        { label: "Age", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.age}</h1> },
+        { label: "Phone", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.phone}</h1> },
         { label: "Specialization", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.specialization}</h1> },
         { label: "Area of Interests", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.areaInterest}</h1> },
         { label: "Status", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.status}</h1> },
-        { label: "Action", renderCell: (item) => <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-32 p-2" disabled={item?.status==="Accepted"} onClick={() => acceptProfessionals(item?._id)}>Accept Professional</Button> }
+        { label: "Action", renderCell: (item) => <div className='flex justify-center'><Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-32 p-2" disabled={item?.status==="Accepted"} onClick={() => acceptProfessionals(item?._id)}>Accept Professional</Button></div> }
 
     ];
     return (

@@ -113,14 +113,34 @@ const ManageUpcomingCamps = () => {
               background-color: #95ddf0;
               color: black;
               font-weight: 600;
+           
             }
     
             &:nth-of-type(even) {
               background-color: #21c8f2;
               color: black;
               font-weight: 600;
+            
             }
           `,
+            Table: `
+          width: 2000px; 
+     
+          overflow-x: auto; 
+        `,
+            HeaderCell: `
+        
+          max-width: 2000px; 
+          word-wrap: break-word; 
+          white-space: normal; 
+          text-align: center;
+        `,
+            Cell: `
+          
+          max-width: 2000px; 
+          word-wrap: break-word;
+          white-space: normal; 
+        `,
 
 
         },
@@ -145,31 +165,33 @@ const ManageUpcomingCamps = () => {
 
     const COLUMNS = [
 
-        { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold ">{item?.serialNumber}</h1> },
-        { label: "Camp name", renderCell: (item) => <h1 title={item?.CampName} className="text-sm font-bold">{item?.CampName}</h1> },
+        { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold text-center">{item?.serialNumber}</h1> },
+        { label: "Camp name", renderCell: (item) => <h1 title={item?.CampName} className="text-sm font-bold text-center">{item?.CampName}</h1> },
         { label: "Camp Fees", renderCell: (item) => <h1 title={item?.CampFees} className="text-sm font-bold text-center">{item?.CampFees}</h1> },
         { label: "Location", renderCell: (item) => <h1 title={item?.Venue} className="text-sm font-bold">{item?.Venue}</h1>, resize: true },
-        { label: "DateTime", renderCell: (item) => <h1 title={item?.ScheduledDateTime} className="text-sm font-bold">{item?.ScheduledDateTime}</h1> },
-        { label: "Specialized Services", renderCell: (item) => <h1 className="text-sm font-bold text-center" title={item?.SpecializedServices}>{item?.SpecializedServices}</h1> },
+        { label: "DateTime", renderCell: (item) => <h1 title={item?.ScheduledDateTime} className="text-sm font-bold text-center">{item?.ScheduledDateTime}</h1> },
+        { label: "Specialized Services", renderCell: (item) => <h1 className="text-sm font-bold text-center" title={item?.SpecializedServices}>{item?.SpecializedServices}</h1>,resize: true },
         { label: "Venue", renderCell: (item) => <h1 className="text-sm font-bold text-center" title={item?.Venue}>{item?.Venue}</h1> },
         { label: "Participant Count", renderCell: (item) => <h1 className="text-sm font-bold text-center">{(participants.filter(p => p.campData._id === item._id)).length}</h1> },
         { label: "Interested professionals", renderCell: (item) => <h1 className="text-sm font-bold text-center">{(professionals.filter(p => p.campData._id === item._id)).length}</h1> },
 
         {
             label: "Action", renderCell: (item) =>
-                <div>
+                <div className='flex justify-center'>
+                    <div>
 
-                    <Link to={`/organizerDashboard/reviewParticipants/${item?._id}`}><Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20">Review Participants</Button></Link>
+                        <Link to={`/organizerDashboard/reviewParticipants/${item?._id}`}><Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-36">Review Participants</Button></Link>
 
-                    <Link to={`/organizerDashboard/reviewProfessionals/${item?._id}`}><Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 mt-2 w-20">
-                        Review Professionals
-                    </Button></Link>
-                    <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20 mt-2"
+                        <Link to={`/organizerDashboard/reviewProfessionals/${item?._id}`}><Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 mt-2 w-36">
+                            Review Professionals
+                        </Button></Link>
+                        <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-36 mt-2"
 
-                        disabled={!((participants.filter(p => p.campData._id === item._id)).length >=5 && (professionals.filter(p => p.campData._id === item._id)).length >=2)}
-                        onClick={() => addToPopular(item)}
+                            disabled={!((participants.filter(p => p.campData._id === item._id)).length >= 5 && (professionals.filter(p => p.campData._id === item._id)).length >= 2)}
+                            onClick={() => addToPopular(item)}
 
-                    >Publish</Button>
+                        >Publish</Button>
+                    </div>
                 </div>
         },
 
@@ -180,7 +202,7 @@ const ManageUpcomingCamps = () => {
 
         <div>
             <div className="flex justify-evenly mb-8">
-                <SectionTitle subheading="---Find all your camps here---" heading="Manage Camps"></SectionTitle>
+                <SectionTitle subheading="---Find all your camps here---" heading="Manage Upcoming Camps"></SectionTitle>
 
             </div>
             <div className="max-w-6xl mx-auto md:p-10 px-1">

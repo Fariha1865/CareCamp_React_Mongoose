@@ -90,12 +90,12 @@ const Testimonials = () => {
                         console.log(result)
 
                     })
-               
+
 
             })
 
-            reset();
-            onCloseModal();
+        reset();
+        onCloseModal();
 
 
 
@@ -133,6 +133,24 @@ const Testimonials = () => {
               font-weight: 600;
             }
           `,
+            Table: `
+          width: 2000px; 
+     
+          overflow-x: auto; 
+        `,
+            HeaderCell: `
+        
+          max-width: 2000px; 
+          word-wrap: break-word; 
+          white-space: normal; 
+          text-align: center
+        `,
+            Cell: `
+          
+          max-width: 2000px; 
+          word-wrap: break-word;
+          white-space: normal; 
+        `,
 
 
         },
@@ -157,16 +175,16 @@ const Testimonials = () => {
 
     const COLUMNS = [
 
-        { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold ">{item?.serialNumber}</h1> },
-        { label: "Camp name", renderCell: (item) => <h1 title={item?.campData?.CampName} className="text-sm font-bold">{item?.campData?.CampName}</h1> },
+        { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold text-center">{item?.serialNumber}</h1> },
+        { label: "Camp name", renderCell: (item) => <h1 title={item?.campData?.CampName} className="text-sm font-bold text-center">{item?.campData?.CampName}</h1> },
         { label: "Camp Fees", renderCell: (item) => <h1 title={item?.campData?.CampFees} className="text-sm font-bold text-center">{item?.campData?.CampFees}</h1> },
-        { label: "Location", renderCell: (item) => <h1 title={item?.campData?.Location} className="text-sm font-bold">{item?.campData?.Location}</h1>, resize: true },
+        { label: "Location", renderCell: (item) => <h1 title={item?.campData?.Location} className="text-sm font-bold text-center">{item?.campData?.Location}</h1>, resize: true },
         { label: "Venue", renderCell: (item) => <h1 title={item?.campData?.Venue} className="text-sm font-bold">{item?.campData?.Venue}</h1>, resize: true },
-        { label: "DateTime", renderCell: (item) => <h1 title={item?.campData?.ScheduledDateTime} className="text-sm font-bold">{item?.campData?.ScheduledDateTime}</h1> },
+        { label: "DateTime", renderCell: (item) => <h1 title={item?.campData?.ScheduledDateTime} className="text-sm font-bold text-center">{item?.campData?.ScheduledDateTime}</h1> },
         { label: "Payment status", renderCell: () => <h1 className="text-sm font-bold text-center">Paid</h1> },
-        { label: "Confirmation Status", renderCell: () => <h1 className="text-sm font-bold">Pending...</h1> },
+        { label: "Confirmation Status", renderCell: () => <h1 className="text-sm font-bold text-center">Pending...</h1> },
         {
-            label: "Payment status", renderCell: (item) => <Button onClick={() => { setCampId(item?.campData?._id); setOpenModal(true) }} gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20">Review</Button>
+            label: "Payment status", renderCell: (item) => <div className="flex justify-center"><Button onClick={() => { setCampId(item?.campData?._id); setOpenModal(true) }} gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20">Review</Button></div>
 
         },
 

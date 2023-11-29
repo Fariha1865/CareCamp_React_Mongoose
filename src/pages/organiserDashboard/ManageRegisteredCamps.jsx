@@ -2,9 +2,6 @@
 import { CompactTable } from "@table-library/react-table-library/compact";
 import { useTheme } from "@table-library/react-table-library/theme";
 import { getTheme } from "@table-library/react-table-library/baseline";
-
-
-
 import { useEffect, useState } from "react";
 import UseAuth from "../../hooks/UseAuth";
 import useAxiosSecureCalls from "../../hooks/AxiosSecureCalls";
@@ -60,6 +57,7 @@ const ManageRegisteredCamps = () => {
                 axiosSecure.patch(`/confirmRegistration/${id}`)
                 .then(res=>{
                     console.log(res)
+                    Swal.fire("Participant registration confirmed")
                     axiosSecure.get(`/registeredCamps/${user?.email}`)
                     .then(data => {
                         console.log(data.data)
@@ -86,7 +84,8 @@ const ManageRegisteredCamps = () => {
                 axiosSecure.patch(`/cancelRegistration/${id}`)
                 .then(res=>{
                     console.log(res)
-                    axiosSecure.get(`/registeredCamps`)
+                    Swal.fire("Participant registration cancelled")
+                    axiosSecure.get(`/registeredCamps/${user?.email}`)
                     .then(data => {
                         console.log(data.data)
                         setCampData(data.data)
@@ -107,7 +106,7 @@ const ManageRegisteredCamps = () => {
         {
             HeaderRow: `
             background-color: #eaf5fd;
-            font-size: 10px;
+            font-size: 16px;
             font-weight: 900;
             
           `,
@@ -124,6 +123,24 @@ const ManageRegisteredCamps = () => {
               font-weight: 600;
             }
           `,
+          Table: `
+          width: 2000px; 
+     
+          overflow-x: auto; 
+        `,
+        HeaderCell: `
+        
+          max-width: 2000px; 
+          word-wrap: break-word; 
+          white-space: normal; 
+          text-align: center;
+        `,
+        Cell: `
+          
+          max-width: 2000px; 
+          word-wrap: break-word;
+          white-space: normal; 
+        `,
 
 
         },
@@ -148,25 +165,29 @@ const ManageRegisteredCamps = () => {
 
     const COLUMNS = [
 
-        { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold ">{item?.serialNumber}</h1> },
-        { label: "Camp name", renderCell: (item) => <h1 title={item?.campData?.CampName} className="text-sm font-bold">{item?.campData?.CampName}</h1> },
+        { label: "No.", renderCell: (item) => <h1 className="text-b font-bold text-center">{item?.serialNumber}</h1> },
+        { label: "Camp name", renderCell: (item) => <h1 title={item?.campData?.CampName} className="text-sm font-bold text-center">{item?.campData?.CampName}</h1> },
         { label: "Participant", renderCell: (item) => <h1 title={item?.campData?.CampFees} className="text-sm font-bold text-center">{item?.email}</h1> },
         { label: "Camp Fees", renderCell: (item) => <h1 title={item?.campData?.CampFees} className="text-sm font-bold text-center">{item?.campData?.CampFees}</h1> },
         { label: "Location", renderCell: (item) => <h1 title={item?.campData?.Venue} className="text-sm font-bold">{item?.campData?.Venue}</h1>, resize: true },
-        { label: "DateTime", renderCell: (item) => <h1 title={item?.campData?.ScheduledDateTime} className="text-sm font-bold">{item?.campData?.ScheduledDateTime}</h1> },
+        { label: "DateTime", renderCell: (item) => <h1 title={item?.campData?.ScheduledDateTime} className="text-sm font-bold text-center">{item?.campData?.ScheduledDateTime}</h1> },
         { label: "Payment status", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.payment}</h1> },
         { label: "Confirmation Status", renderCell: (item) => 
     
-            <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20" disabled={item?.payment != "Paid" || item?.status === "Cancelled"} onClick={()=>handleConfirmation(item?._id)}>{item?.status === "Pending" || item?.status === "Cancelled" ? "Pending" : "Confirmed"}</Button>
+           <div className="flex justify-center">
+             <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20" disabled={item?.payment != "Paid" || item?.status === "Cancelled" || item?.status === "Confirmed" } onClick={()=>handleConfirmation(item?._id)}>{item?.status === "Pending" || item?.status === "Cancelled" ? "Pending" : "Confirmed"}</Button>
 
+           </div>
         },
         {
             label: "Actions", renderCell: (item) =>
-                <div>
-                    <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 mt-2 w-20" disabled={item?.payment != "Paid" || item?.status === "Confirmed"} onClick={()=>handleCancel(item?._id)}>
+             <div className="flex justify-center">
+                   <div>
+                    <Button gradientDuoTone="greenToBlue" className="border-2 border-blue-800 mt-2 w-20" disabled={item?.payment != "Paid" || item?.status === "Confirmed" || item?.status === "Cancelled"} onClick={()=>handleCancel(item?._id)}>
                     {item?.status === "Pending" || item?.status === "Confirmed" ? "Cancel" : "Cancelled"}
                     </Button>
                 </div>
+             </div>
         },
 
     ];

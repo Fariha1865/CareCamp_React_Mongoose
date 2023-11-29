@@ -155,6 +155,24 @@ const ManageCamps = () => {
               font-weight: 600;
             }
           `,
+          Table: `
+          width: 2000px; 
+     
+          overflow-x: auto; 
+        `,
+        HeaderCell: `
+        
+          max-width: 2000px; 
+          word-wrap: break-word; 
+          white-space: normal; 
+          text-align: center;
+        `,
+        Cell: `
+          
+          max-width: 2000px; 
+          word-wrap: break-word;
+          white-space: normal; 
+        `,
 
 
         },
@@ -179,17 +197,18 @@ const ManageCamps = () => {
 
     const COLUMNS = [
 
-        { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold ">{item?.serialNumber}</h1> },
-        { label: "Camp name", renderCell: (item) => <h1 title={item?.CampName} className="text-sm font-bold">{item?.CampName}</h1> },
+        { label: "No.", renderCell: (item) => <h1 className="text-xs font-bold text-center">{item?.serialNumber}</h1> },
+        { label: "Camp name", renderCell: (item) => <h1 title={item?.CampName} className="text-sm font-bold text-center">{item?.CampName}</h1> },
         { label: "Camp Fees", renderCell: (item) => <h1 title={item?.CampFees} className="text-sm font-bold text-center">{item?.CampFees}</h1> },
-        { label: "Location", renderCell: (item) => <h1 title={item?.Venue} className="text-sm font-bold">{item?.Venue}</h1>, resize: true },
-        { label: "DateTime", renderCell: (item) => <h1 title={item?.ScheduledDateTime} className="text-sm font-bold">{item?.ScheduledDateTime}</h1> },
+        { label: "Location", renderCell: (item) => <h1 title={item?.Venue} className="text-sm font-bold text-center">{item?.Venue}</h1>, resize: true },
+        { label: "DateTime", renderCell: (item) => <h1 title={item?.ScheduledDateTime} className="text-sm font-bold text-center">{item?.ScheduledDateTime}</h1> },
         { label: "Specialized Services", renderCell: (item) => <h1 className="text-sm font-bold text-center" title={item?.SpecializedServices}>{item?.SpecializedServices}</h1> },
         { label: "Healthcare Professionals", renderCell: (item) => <h1 className="text-sm font-bold text-center" title={item?.HealthcareProfessionals}>{item?.HealthcareProfessionals}</h1> },
 
         {
             label: "Action", renderCell: (item) =>
-                <div>
+             <div className="flex justify-center">
+                   <div>
 
                     <Button onClick={() => { setId(item?._id), setOpenModal(true), fetchDataFromMongoDB(item?._id) }} gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20">Update</Button>
 
@@ -197,6 +216,7 @@ const ManageCamps = () => {
                         Delete
                     </Button>
                 </div>
+             </div>
         },
 
     ];
