@@ -16,6 +16,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import Swal from 'sweetalert2';
 
 const backgroundImage = 'url("https://i.ibb.co/dLfZGkP/resul-mentes-Dbw-YNr8-RPbg-unsplash.jpg")';
 
@@ -25,12 +26,37 @@ const Contact = () => {
     const toggleDrawer = () => {
         setDrawerOpen(!isDrawerOpen);
     };
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: '',
+    });
+    
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission logic here
-    };
 
+        const { name, email, message } = formData;
+
+        if (name && email && message) {
+            // Handle form submission logic here
+            // You can send the form data to the server or perform other actions
+
+            // Show the success toast
+            Swal.fire("Thank You for contacting us!! We'll reach out to you");
+        } else {
+            // Show an error message if any field is empty
+            Swal.fire('Please fill in all fields before submitting.');
+        }
+    };
     return (
         <div style={{ background: backgroundImage, backgroundSize: 'cover', minHeight: '100vh' }} className='p-32'>
             <Grid container spacing={3} justifyContent="center">
@@ -55,17 +81,21 @@ const Contact = () => {
                             <TextField
                                 label="Name"
                                 variant="outlined"
+                                name="name"
                                 fullWidth
                                 margin="normal"
                                 required
+                                onChange={handleInputChange}
                             />
                             <TextField
                                 label="Email"
                                 variant="outlined"
                                 fullWidth
+                                name="email"
                                 margin="normal"
                                 required
                                 type="email"
+                                onChange={handleInputChange}
                             />
                             <TextField
                                 label="Message"
@@ -73,8 +103,10 @@ const Contact = () => {
                                 fullWidth
                                 margin="normal"
                                 required
+                                name="message"
                                 multiline
                                 rows={4}
+                                onChange={handleInputChange}
                             />
                             <Box mt={2} mb={2}>
                                 <FormControlLabel
@@ -88,8 +120,11 @@ const Contact = () => {
                                 color="primary"
                                 fullWidth
                                 startIcon={<SendIcon />}
+                                onClick={handleSubmit}
                             >
                                 Send
+
+                                
                             </Button>
                         </form>
                     </Paper>
