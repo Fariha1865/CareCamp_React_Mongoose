@@ -69,9 +69,20 @@ const CampDetails = () => {
         axiosSecureCalls.post("/joinedParticipants",registeredParticipant)
         .then(result=>{
             console.log(result)
+            Swal.fire("You joined this camp successfully");
+
+            axiosSecure.patch(`/updateParticipantsCount/${camp?._id}`)
+            .then(res=>{
+                axiosSecure.get(url)
+                .then(result => {
+    
+                    console.log(result)
+                    setCamp(result?.data[0])
+                })
+            })
         })
         setOpenModal(false);
-        Swal.fire("You joined this camp successfully");
+        
     }
 
     return (
