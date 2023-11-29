@@ -47,13 +47,10 @@ const Contact = () => {
         const { name, email, message } = formData;
 
         if (name && email && message) {
-            // Handle form submission logic here
-            // You can send the form data to the server or perform other actions
-
-            // Show the success toast
+        
             Swal.fire("Thank You for contacting us!! We'll reach out to you");
         } else {
-            // Show an error message if any field is empty
+          
             Swal.fire('Please fill in all fields before submitting.');
         }
     };
