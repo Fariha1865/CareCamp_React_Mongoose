@@ -36,7 +36,7 @@ const AvailableCamps = () => {
 
     }
     return (
-        <div className='pt-20'>
+        <div className="pt-20 bg-[url('https://i.ibb.co/dLfZGkP/resul-mentes-Dbw-YNr8-RPbg-unsplash.jpg')] bg-cover bg-center min-h-screen">
 
 
             <Helmet>
@@ -47,7 +47,7 @@ const AvailableCamps = () => {
             <div className="flex justify-center pt-5" >
                 <div data-aos="zoom-in">
                     <div>
-                        <Button gradientDuoTone="greenToBlue" onClick={handleSort}>Sort by Participants</Button>
+                        <Button gradientDuoTone="greenToBlue" onClick={handleSort} className='border-4 border-solid border-blue-700'>Sort by Participants</Button>
                     </div>
                 </div>
             </div>

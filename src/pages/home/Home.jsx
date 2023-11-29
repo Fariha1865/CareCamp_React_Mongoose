@@ -22,7 +22,7 @@ const Home = () => {
     });
 
     return (
-        <div>
+        <div className="">
             <Helmet>
                 <title>CareCamp || Home</title>
             </Helmet>
@@ -33,9 +33,7 @@ const Home = () => {
             <UpcomingCamps></UpcomingCamps>
             <Testimonials></Testimonials>
 
-            {/* <MenuItems></MenuItems>
-            <CheckMenu></CheckMenu>
-            <Testimonials></Testimonials> */}
+
             {/* 
             <div className="">
                 <div className="flex items-center justify-center relative">

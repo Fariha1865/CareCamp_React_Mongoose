@@ -40,7 +40,9 @@ const Testimonials = () => {
                 // Wait for all promises to resolve
                 Promise.all(promises)
                     .then(campDataResults => {
-                        setcampData(campDataResults);
+
+                        const campTesti = campDataResults.reverse();
+                        setcampData(campTesti);
                     })
 
 

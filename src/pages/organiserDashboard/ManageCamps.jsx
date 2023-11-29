@@ -249,7 +249,7 @@ const ManageCamps = () => {
 
             <Modal show={openModal} size="md" onClose={onCloseModal} popup>
                 <Modal.Header />
-                <h1 className="text-center font-bold mb-5 text-blue-700">Edit Profile</h1>
+                <h1 className="text-center font-bold mb-5 text-blue-700">Edit Camp</h1>
                 <Modal.Body>
                     <div className="">
                         <form className="flex flex-col gap-4 p-5" onSubmit={handleEdit}>
