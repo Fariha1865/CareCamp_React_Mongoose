@@ -67,7 +67,7 @@ const Contact = () => {
                     style={{ marginTop: '16px', backgroundColor: '#002f6c', color: '#fff' }}
                     className='max-w-2xl'
                 >
-                    Click to See Contact Information
+                    Click here to see Contact Information
                 </Button>
                 <Grid item xs={12} sm={8} md={6}>
                     <Paper elevation={3} style={{ padding: '20px', textAlign: 'center', backgroundColor: 'rgba(255, 255, 255, 0.9)' }}>
