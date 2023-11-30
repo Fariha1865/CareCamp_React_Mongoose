@@ -18,6 +18,7 @@ const CheckoutForm = ({ camp }) => {
     const [clientSecret, setClientSecret] = useState('');
     const { user } = UseAuth();
     const [transactionId, setTransactionId] = useState('');
+    const backgroundImage = 'url("https://i.ibb.co/dLfZGkP/resul-mentes-Dbw-YNr8-RPbg-unsplash.jpg")';
 
     console.log(camp?.campData?.CampFees)
     useEffect(() => {
@@ -133,8 +134,8 @@ const CheckoutForm = ({ camp }) => {
 
 
         return (
-            <div className="max-w-4xl mx-auto mt-20">
-                <form onSubmit={handleSubmit}>
+            <div className="" style={{ background: backgroundImage, backgroundSize: 'cover', minHeight: '100vh' }}>
+                <form onSubmit={handleSubmit} className="bg-blue-300 pt-32 p-20">
                     <CardElement
                         options={{
                             style: {
@@ -153,7 +154,9 @@ const CheckoutForm = ({ camp }) => {
                         }}
                     />
 
+                    <div className="flex justify-center">
                     <Button gradientDuoTone="greenToBlue" className="border-2 mt-20 border-blue-800" type="submit" disabled={!stripe || !clientSecret || transactionId} >Pay</Button>
+                    </div>
                     <p className="text-red-600">{error}</p>
                     {transactionId && <p className="text-blue-700 mt-10"> <span className="text-lg font-bold">Your transaction id:</span> {transactionId}</p>}
 

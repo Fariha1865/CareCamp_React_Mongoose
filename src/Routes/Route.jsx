@@ -29,6 +29,7 @@ import AcceptedCamps from "../pages/professionalsDashboard/AcceptedCamps";
 import Contact from "../pages/contact/Contact";
 import PrivateRoute from "./PrivateRoute";
 import DummyDash from "../pages/DummyDash";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 
 
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root/>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
         {
             path: "/",
