@@ -4,7 +4,7 @@
 
 This is a Medical Camp management Website, made using React JS, CSS3 (Flowbite and Tailwind),Firebase Authentication, JWT authentication and MongoDB + Mongoose
 
-# Material UI for Contact , Sign in and Registration pages and Mongoose for Userdata, all camps and upcoming camps routes
+# Material UI for Contact , Sign in and Registration pages and Mongoose for Userdata, JWT token verification methods and all camps routes
 
 
 ### Libraries Used:
@@ -32,6 +32,7 @@ This is a Medical Camp management Website, made using React JS, CSS3 (Flowbite a
 - Organisers  can add new camps and upcoming camps, can manage participants confirmation and cancellation of his own createdcamps, Can manage and view nterested profesionals and participents in the upcoming camps and can accept them, can publish any upcoming event if joined participants count for that camps is greaer or equal to 5 and professionals count equal or greater than 2
 - Participants can Join/Register for the popular, upcoming and othercamps and view details in manage registered data table in dashboard can make pament for any camp or cancel registration, can add testimonial for any attended camp andalso can see his payment history
 - Professionals can show interest for any upcoming camps and see the upcoming camps in which he s acceptedby organizer in te Dashboard
+- User can upload image (organisers for camp image and participants while reviweing ay camp) using Imagebb api and Make payment with Stripe
 - All the 3 types of users can viewand edit their profiles
 - User can toggle between sign in and register pages
 - While logging in, if credentials are not valid, error toast is shown and on valid credetials, success toast is shown
