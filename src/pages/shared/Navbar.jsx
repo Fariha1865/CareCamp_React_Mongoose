@@ -87,7 +87,7 @@ const NavigationBar = () => {
                                     <span className="block truncate text-sm font-medium mb-3">{user?.email}</span>
                                     <span className="block truncate text-sm font-bold text-blue-800">Role: {userData[0]?.role}</span>
                                 </Dropdown.Header>
-                                <Dropdown.Item>Dashboard</Dropdown.Item>
+                            
                                 {/* <Dropdown.Item>Settings</Dropdown.Item>
                                 <Dropdown.Item>Earnings</Dropdown.Item> */}
                                 <Dropdown.Divider />

@@ -112,6 +112,7 @@ const CheckoutForm = ({ camp }) => {
                     .then(data => {
                         console.log(data.data)
                         const campAllData = data?.data?.find(item => item.campData?._id === camp?.campData?._id);
+                        console.log(campAllData)
                         axiosSecure.patch(`/joinedParticipants/${campAllData?._id}`)
                         .then(res=>{
                             console.log(res)

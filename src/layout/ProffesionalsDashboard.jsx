@@ -1,6 +1,6 @@
 import { FaEnvelope, FaHome, } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
-
+import { TiTick } from "react-icons/ti";
 
 
 
@@ -26,7 +26,7 @@ const ProffesionalsDashboard = () => {
                             HealthCare Professionals Profile</NavLink>
                     </li>
                     <li className="flex gap-2 items-center my-5">
-                        <FaHome></FaHome>
+                    <TiTick />
                         <NavLink to="/professionalsDashboard/accepted">
 
                             Accepted Camps</NavLink>
@@ -46,7 +46,7 @@ const ProffesionalsDashboard = () => {
 
                     <li className="mt-5 flex gap-2 items-center">
                         <FaEnvelope></FaEnvelope>
-                        <NavLink to="">
+                        <NavLink to="/contact">
 
                             Contact</NavLink>
                     </li>

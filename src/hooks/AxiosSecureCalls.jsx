@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import UseAuth from "./UseAuth";
 
 
+// https://medical-camp-server-psi.vercel.app
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://medical-camp-server-psi.vercel.app'
 })
 const useAxiosSecureCalls = () => {
     const navigate = useNavigate();

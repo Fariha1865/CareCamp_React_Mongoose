@@ -8,10 +8,12 @@ import SectionTitle from "../../../Components/SectionTitle";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/AxiosSecure";
 import UpcomingCamp from "./UpcomingCamp";
+import Marquee from "react-fast-marquee";
 
 const UpcomingCamps = () => {
     const axiosSecure = useAxiosSecure();
     const [camps,setCamps] = useState();
+    
     AOS.init({
         // Customize your settings here, such as duration, easing, etc.
         duration: 2000,
@@ -53,11 +55,13 @@ const UpcomingCamps = () => {
             <SectionTitle subheading="---Explore Upcoming medical camps offering diverse services---" heading="Upcoming Camps"></SectionTitle>
 
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-14">
+            <Marquee pauseOnHover>
+            <div className="flex">
                 {
                     allCamps?.map(camp => <UpcomingCamp key={camp._id} camp={camp}></UpcomingCamp>)
                 }
             </div>
+            </Marquee>
 
         </div>
     );

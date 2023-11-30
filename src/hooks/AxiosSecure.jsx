@@ -5,8 +5,9 @@ import { useEffect } from "react";
 
 
 // const auth = getAuth(app);
+// https://medical-camp-server-psi.vercel.app
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://medical-camp-server-psi.vercel.app',
     withCredentials: true
 });
 

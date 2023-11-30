@@ -321,7 +321,7 @@ const ManageCamps = () => {
                                 <TextInput {...register('description', { required: false })} defaultValue={updateCamp?.Description} id="description" name="description" type="text" />
                             </div>
 
-                            <Button type="submit">Add Camp</Button>
+                            <Button type="submit">Edit Camp</Button>
                         </form>
                     </div>
                 </Modal.Body>

@@ -79,10 +79,10 @@ const AvailableCamp = ({ camp }) => {
 
                         </div>
                         <h1 className="text-black font-bold text-xs mt-2"><span className="text-blue-800">Target Audience:</span> {camp?.TargetAudience}</h1>
-                        <div className="flex mt-5 justify-between">
+                        <div className="flex mt-5 justify-end">
 
                             <Link to={`/details/${camp?._id}`}><Button onClick={() => setOpenModal(true)} gradientDuoTone="greenToBlue" >Details</Button></Link>
-                            <Button onClick={() => setOpenModal(true)} gradientDuoTone="greenToBlue" >Join Camp</Button>
+                            {/* <Button onClick={() => setOpenModal(true)} gradientDuoTone="greenToBlue" >Join Camp</Button> */}
                         </div>
                     </div>
                     <div className="blob">

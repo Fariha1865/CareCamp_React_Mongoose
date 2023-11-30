@@ -1,6 +1,6 @@
-import { FaBook,  FaEnvelope, FaHome, FaList, FaUtensils } from "react-icons/fa";
+import { FaBook, FaEdit, FaEnvelope, FaHome, FaList, FaUtensils } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
-
+import { MdOutlineManageHistory } from "react-icons/md";
 
 
 
@@ -26,25 +26,25 @@ const ParticipantDashboard = () => {
                             Participant Profile</NavLink>
                     </li>
                     <li className="mt-5 flex gap-2 items-center">
-                        <FaUtensils></FaUtensils>
+                        <MdOutlineManageHistory />
                         <NavLink to="/participantDashboard/registeredCamps">
 
                             Registered Camps</NavLink>
                     </li>
                     <li className="mt-5 flex gap-2 items-center">
-                        <FaList></FaList>
+                        <MdOutlineManageHistory />
                         <NavLink to="/participantDashboard/paymentHistory">
 
                             Payment History</NavLink>
                     </li>
                     <li className="mt-5 mb-5 flex gap-2 items-center">
-                        <FaBook></FaBook>
-                        <NavLink to="/participantDashboard/testimonials">
+                        <FaEdit/>
+                            <NavLink to="/participantDashboard/testimonials">
 
-                            feedback-and-ratings
-                        </NavLink>
+                                feedback-and-ratings
+                            </NavLink>
                     </li>
-                   
+
 
                     <hr className="border-solid border-2 border-blue-400"></hr>
 
@@ -58,7 +58,7 @@ const ParticipantDashboard = () => {
 
                     <li className="mt-5 flex gap-2 items-center">
                         <FaEnvelope></FaEnvelope>
-                        <NavLink to="/order/contact">
+                        <NavLink to="/contact">
 
                             Contact</NavLink>
                     </li>

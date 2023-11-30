@@ -49,7 +49,7 @@ const Testimonials = () => {
         axiosSecure.get(`/registeredUser/${user?.email}`)
             .then(data => {
 
-                const paidCamps = data?.data?.filter(camp => camp?.payment === "Paid");
+                const paidCamps = data?.data?.filter(camp => camp?.payment === "Paid" && camp?.status === "Confirmed");
                 console.log(paidCamps)
                 setCampData(paidCamps)
 
@@ -181,8 +181,8 @@ const Testimonials = () => {
         { label: "Location", renderCell: (item) => <h1 title={item?.campData?.Location} className="text-sm font-bold text-center">{item?.campData?.Location}</h1>, resize: true },
         { label: "Venue", renderCell: (item) => <h1 title={item?.campData?.Venue} className="text-sm font-bold">{item?.campData?.Venue}</h1>, resize: true },
         { label: "DateTime", renderCell: (item) => <h1 title={item?.campData?.ScheduledDateTime} className="text-sm font-bold text-center">{item?.campData?.ScheduledDateTime}</h1> },
-        { label: "Payment status", renderCell: () => <h1 className="text-sm font-bold text-center">Paid</h1> },
-        { label: "Confirmation Status", renderCell: () => <h1 className="text-sm font-bold text-center">Pending...</h1> },
+        { label: "Payment status", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.payment}</h1> },
+        { label: "Confirmation Status", renderCell: (item) => <h1 className="text-sm font-bold text-center">{item?.status}</h1> },
         {
             label: "Payment status", renderCell: (item) => <div className="flex justify-center"><Button onClick={() => { setCampId(item?.campData?._id); setOpenModal(true) }} gradientDuoTone="greenToBlue" className="border-2 border-blue-800 w-20">Review</Button></div>
 

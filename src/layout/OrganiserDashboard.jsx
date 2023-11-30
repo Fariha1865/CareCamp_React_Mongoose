@@ -1,7 +1,7 @@
-import { FaBook, FaEnvelope, FaHome, FaList, FaUtensils } from "react-icons/fa";
+import { FaBook, FaEdit, FaEnvelope, FaHome, FaList, FaUtensils } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
-
-
+import { MdOutlineManageHistory } from "react-icons/md";
+import { MdEditDocument } from "react-icons/md";
 
 
 const OrganiserDashboard = () => {
@@ -26,33 +26,33 @@ const OrganiserDashboard = () => {
                             Organizer Profile</NavLink>
                     </li>
                     <li className="mt-5 flex gap-2 items-center">
-                        <FaUtensils></FaUtensils>
+                        <FaEdit />
                         <NavLink to="/organizerDashboard/addCamp">
 
                             Add Camp</NavLink>
                     </li>
                     <li className="mt-5 flex gap-2 items-center">
-                        <FaList></FaList>
+                        <MdOutlineManageHistory />
                         <NavLink to="/organizerDashboard/manageCamp">
 
                             Manage Camps</NavLink>
                     </li>
                     <li className="mt-5 mb-5 flex gap-2 items-center">
-                        <FaBook></FaBook>
+                        <MdOutlineManageHistory />
                         <NavLink to="/organizerDashboard/manageRegisteredCamp">
 
                             Manage Registered Camps
                         </NavLink>
                     </li>
                     <li className="mt-5 mb-5 flex gap-2 items-center">
-                        <FaBook></FaBook>
+                        <MdEditDocument />
                         <NavLink to="/organizerDashboard/addUpcomingCamps">
 
                             Add Upcoming Camps
                         </NavLink>
                     </li>
                     <li className="mt-5 mb-5 flex gap-2 items-center">
-                        <FaBook></FaBook>
+                        <MdOutlineManageHistory />
                         <NavLink to="/organizerDashboard/manageUpcomingCamps">
 
                             Manage Upcoming Camps
@@ -72,7 +72,7 @@ const OrganiserDashboard = () => {
 
                     <li className="mt-5 flex gap-2 items-center">
                         <FaEnvelope></FaEnvelope>
-                        <NavLink to="">
+                        <NavLink to="/contact">
 
                             Contact</NavLink>
                     </li>

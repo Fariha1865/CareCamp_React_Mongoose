@@ -8,6 +8,8 @@ import { useInView } from 'react-intersection-observer';
 import PopularCamps from "./popularCamps/PopularCamps";
 import Testimonials from "./Testimonials";
 import UpcomingCamps from "./upcomingCamps/UpcomingCamps";
+import { Button } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 
 
@@ -30,6 +32,11 @@ const Home = () => {
             <Carousel></Carousel>
             <Category></Category>
             <PopularCamps></PopularCamps>
+            
+            <div className="flex justify-center my-10">
+            <Link to='/allCamps'><Button gradientDuoTone="greenToBlue" >See All</Button></Link>
+            </div>
+
             <UpcomingCamps></UpcomingCamps>
             <Testimonials></Testimonials>
 
