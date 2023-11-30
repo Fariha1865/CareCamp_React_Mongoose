@@ -2,6 +2,7 @@ import { FaBook, FaEdit, FaEnvelope, FaHome, FaList, FaUtensils } from "react-ic
 import { NavLink, Outlet } from "react-router-dom";
 import { MdOutlineManageHistory } from "react-icons/md";
 import { MdEditDocument } from "react-icons/md";
+import { Helmet } from "react-helmet";
 
 
 const OrganiserDashboard = () => {
@@ -14,6 +15,9 @@ const OrganiserDashboard = () => {
 
     return (
         <div className="flex flex-col lg:flex-row">
+            <Helmet>
+                <title>CareCamp || Organizer Dashboard</title>
+            </Helmet>
             {/* dashboard side bar */}
             <div className="lg:w-64 w-full min-h-screen bg-blue-200">
                 <ul className="menu p-4 mt-10">

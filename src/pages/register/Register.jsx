@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from '../../hooks/AxiosSecure';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { Helmet } from 'react-helmet';
 
 
 
@@ -102,6 +103,9 @@ const Register = () => {
 
     return (
         <ThemeProvider theme={defaultTheme}>
+            <Helmet>
+                <title>CareCamp || SignIn</title>
+            </Helmet>
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
                 <Grid

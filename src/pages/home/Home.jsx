@@ -10,6 +10,7 @@ import Testimonials from "./Testimonials";
 import UpcomingCamps from "./upcomingCamps/UpcomingCamps";
 import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
+import Subscribe from "./subscribe/Subscribe";
 
 
 
@@ -38,6 +39,9 @@ const Home = () => {
             </div>
 
             <UpcomingCamps></UpcomingCamps>
+
+
+            <Subscribe></Subscribe>
             <Testimonials></Testimonials>
 
 

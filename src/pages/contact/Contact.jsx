@@ -17,6 +17,7 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const backgroundImage = 'url("https://i.ibb.co/dLfZGkP/resul-mentes-Dbw-YNr8-RPbg-unsplash.jpg")';
 
@@ -31,7 +32,7 @@ const Contact = () => {
         email: '',
         message: '',
     });
-    
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -47,15 +48,18 @@ const Contact = () => {
         const { name, email, message } = formData;
 
         if (name && email && message) {
-        
+
             Swal.fire("Thank You for contacting us!! We'll reach out to you");
         } else {
-          
+
             Swal.fire('Please fill in all fields before submitting.');
         }
     };
     return (
         <div style={{ background: backgroundImage, backgroundSize: 'cover', minHeight: '100vh' }} className='p-32'>
+            <Helmet>
+                <title>CareCamp || Contact Us</title>
+            </Helmet>
             <Grid container spacing={3} justifyContent="center">
                 <Button
                     onClick={toggleDrawer}
@@ -121,7 +125,7 @@ const Contact = () => {
                             >
                                 Send
 
-                                
+
                             </Button>
                         </form>
                     </Paper>

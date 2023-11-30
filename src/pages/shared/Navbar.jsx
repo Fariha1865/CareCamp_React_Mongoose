@@ -67,7 +67,7 @@ const NavigationBar = () => {
         <>
             <Navbar fluid rounded className="fixed z-10 w-screen bg-[#00546a] bg-opacity-30 text-white font-bold text-2xl">
                 <Navbar.Brand>
-                    <img src="/favicon.svg" className="mr-3 h-6 sm:h-9" alt="" />
+                    <img src="https://i.ibb.co/WfvPCYn/Capture.png" className="mr-3 w-40 ml-20 rounded-md sm:h-9" alt="" />
 
                 </Navbar.Brand>
 

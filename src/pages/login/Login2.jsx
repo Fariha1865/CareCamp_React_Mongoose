@@ -19,6 +19,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import UserData from '../../hooks/UserData';
 import useAxiosSecure from '../../hooks/AxiosSecure';
+import { Helmet } from 'react-helmet';
 
 
 
@@ -125,6 +126,9 @@ const Login2 = () => {
 
     return (
         <ThemeProvider theme={defaultTheme}>
+            <Helmet>
+                <title>CareCamp || SignIn</title>
+            </Helmet>
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
                 <Grid

@@ -1,6 +1,7 @@
 import { FaEnvelope, FaHome, } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import { TiTick } from "react-icons/ti";
+import { Helmet } from "react-helmet";
 
 
 
@@ -14,6 +15,9 @@ const ProffesionalsDashboard = () => {
 
     return (
         <div className="flex flex-col lg:flex-row">
+            <Helmet>
+                <title>CareCamp || Healthcare Professional Dashboard</title>
+            </Helmet>
             {/* dashboard side bar */}
             <div className="lg:w-64 w-full min-h-screen bg-blue-200">
                 <ul className="menu p-4 mt-10">
