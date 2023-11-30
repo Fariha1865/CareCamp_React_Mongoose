@@ -35,6 +35,7 @@ This is a Medical Camp management Website, made using React JS, CSS3 (Flowbite a
 - User can upload image (organisers for camp image and participants while reviweing ay camp) using Imagebb api and Make payment with Stripe
 - All the 3 types of users can viewand edit their profiles
 - User can toggle between sign in and register pages
+- Captcha is required while logging in
 - While logging in, if credentials are not valid, error toast is shown and on valid credetials, success toast is shown
 - While registering, if invalid email or password is entered, error toast is given. Password requirs minimum 6 characters and at least one capital and small letter, one digit and one special character
 - After user is successfully signed in or registered, users photo and username is shown in navbar and logout button appears in dropdown
